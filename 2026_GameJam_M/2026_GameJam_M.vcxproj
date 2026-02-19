@@ -138,6 +138,7 @@
     <ClCompile Include="Source\Scene\SceneFactory.cpp" />
     <ClCompile Include="Source\Scene\SceneManager.cpp" />
     <ClCompile Include="Source\Scene\Title\TitleScene.cpp" />
+    <ClCompile Include="Utility\PadInputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Input\InputManager.h" />
@@ -149,6 +150,9 @@
     <ClInclude Include="Source\Scene\SceneManager.h" />
     <ClInclude Include="Source\Scene\SceneType.h" />
     <ClInclude Include="Source\Scene\Title\TitleScene.h" />
+    <ClInclude Include="Utility\Enum.h" />
+    <ClInclude Include="Utility\PadInputManager.h" />
+    <ClInclude Include="Utility\Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
