@@ -133,6 +133,8 @@
   <ItemGroup>
     <ClCompile Include="Source\AppMain.cpp" />
     <ClCompile Include="Source\Input\InputManager.cpp" />
+    <ClCompile Include="Source\Scene\End\EndScene.cpp" />
+    <ClCompile Include="Source\Scene\Help\HelpScene.cpp" />
     <ClCompile Include="Source\Scene\InGame\InGameScene.cpp" />
     <ClCompile Include="Source\Scene\Result\ResultScene.cpp" />
     <ClCompile Include="Source\Scene\SceneFactory.cpp" />
@@ -143,6 +145,8 @@
   <ItemGroup>
     <ClInclude Include="Source\Input\InputManager.h" />
     <ClInclude Include="Source\Input\InputSate.h" />
+    <ClInclude Include="Source\Scene\End\EndScene.h" />
+    <ClInclude Include="Source\Scene\Help\HelpScene.h" />
     <ClInclude Include="Source\Scene\InGame\InGameScene.h" />
     <ClInclude Include="Source\Scene\Result\ResultScene.h" />
     <ClInclude Include="Source\Scene\SceneBase.h" />
