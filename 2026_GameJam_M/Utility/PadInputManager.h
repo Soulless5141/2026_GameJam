@@ -1,5 +1,5 @@
 #pragma once
-#include "Enum.h"
+#include "../Source/Input/InputSate.h"
 #include "Vector2D.h"
 #include "DxLib.h"
 #define PAD_KEYCODE_MAX (16)

@@ -1,5 +1,6 @@
 #include "InGameScene.h"
 #include "../../Input/InputManager.h"
+#include"../../../Utility/PadInputManager.h"
 #include <DxLib.h>
 InGameScene::InGameScene() : time(0)
 {
@@ -29,8 +30,14 @@ eSceneType InGameScene::Update()
 	{
 		return eSceneType::eResult;
 	}
+	PadInputManager* pad = PadInputManager::GetInstance();
+	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
+	{
+		return eSceneType::eResult;
+	}
 	return GetNowSceneType();
 }
+
 
 void InGameScene::Draw() const
 {

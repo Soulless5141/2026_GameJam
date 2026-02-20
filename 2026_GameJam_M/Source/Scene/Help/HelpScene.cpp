@@ -1,6 +1,8 @@
 #include "HelpScene.h"
 #include "../../Input/InputManager.h"
+#include"../../../Utility/PadInputManager.h"
 #include <DxLib.h>
+
 
 HelpScene::HelpScene()
 {
@@ -19,6 +21,13 @@ eSceneType HelpScene::Update()
 	{
 		return eSceneType::eInGame;
 	}
+
+	PadInputManager* pad = PadInputManager::GetInstance();
+	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
+	{
+		return eSceneType::eInGame;
+	}
+
 	return GetNowSceneType();
 }
 void HelpScene::Draw() const

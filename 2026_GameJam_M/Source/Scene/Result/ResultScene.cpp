@@ -1,5 +1,6 @@
 #include "ResultScene.h"
 #include "../../Input/InputManager.h"
+#include "../../../Utility/PadInputManager.h"
 #include <DxLib.h>
 ResultScene::ResultScene()
 {
@@ -22,19 +23,32 @@ void ResultScene::Initialize()
 /// <returns>–ß‚è’l‚Í</returns>
 eSceneType ResultScene::Update()
 {
-	InputManager* input = InputManager::GetInstance();
-	if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
+	//InputManager* input = InputManager::GetInstance();
+	//if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
+	//{
+	//	return eSceneType::eEnd;
+	//}
+
+	PadInputManager* pad = PadInputManager::GetInstance();
+	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
 	{
 		return eSceneType::eEnd;
 	}
 
-	else if (input->GetKeyState(KEY_INPUT_TAB) == eInputState::ePressed)
+	else if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
 	{
 		return eSceneType::eInGame;
 	}
+	
+	//else if (input->GetKeyState(KEY_INPUT_TAB) == eInputState::ePressed)
+	//{
+	//	return eSceneType::eInGame;
+	//}
+
 
 	return GetNowSceneType();
 }
+
 
 void ResultScene::Draw() const
 {
