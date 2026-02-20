@@ -1,7 +1,7 @@
 #include <DxLib.h>
 
 #include "Scene/SceneManager.h"
-#include "Input/InputManager.h"
+#include "../Utility/PadInputManager.h"
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 {
 	ChangeWindowMode(TRUE);
@@ -12,16 +12,16 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 	}
 	SetDrawScreen(DX_SCREEN_BACK);
 	SceneManager* scene_manager = SceneManager::GetInstance();
-	InputManager* input_manager = InputManager::GetInstance();
+	PadInputManager* pad = PadInputManager::GetInstance();
 	scene_manager->Initialize();
 	while (ProcessMessage() != -1)
 	{
-		input_manager->Update();
+		pad ->Update();
 		scene_manager->Update();
 		ClearDrawScreen();
 		scene_manager->Draw();
 		ScreenFlip();
-		if (input_manager->GetKeyState(KEY_INPUT_ESCAPE) ==
+		if (pad ->GetKeyInputState(PAD_INPUT_A) ==
 			eInputState::eReleased)
 		{
 			break;
@@ -29,7 +29,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 	}
 	scene_manager->Finalize();
 	SceneManager::DeleteInstance();
-	InputManager::DeleteInstance();
+	PadInputManager::DeleteInstance();
 	DxLib_End();
 	return 0;
 }

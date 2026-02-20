@@ -2,8 +2,9 @@
 
 enum class eSceneType :unsigned char
 {
-	eSplash,	//スペシャル
 	eTitle,		//タイトル
+	eHelp,		//ヘルプ
 	eInGame,	//インゲーム
 	eResult,	//リザリト
+	eEnd,		//エンド
 };

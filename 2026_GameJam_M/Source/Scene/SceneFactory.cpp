@@ -1,7 +1,9 @@
 #include "SceneFactory.h"
 #include "Title/TitleScene.h"
+#include "Help/HelpScene.h"
 #include "InGame/InGameScene.h"
 #include "Result/ResultScene.h"
+#include "End/EndScene.h"
 SceneBase* SceneFactory::CreateScene(eSceneType next_scene_type)
 
 {
@@ -17,6 +19,11 @@ SceneBase* SceneFactory::CreateScene(eSceneType next_scene_type)
 
 			<SceneBase*>(new TitleScene());
 
+	case eSceneType::eHelp:
+		return dynamic_cast
+
+			<SceneBase*>(new HelpScene());
+
 	case eSceneType::eInGame:
 		return dynamic_cast
 
@@ -26,6 +33,11 @@ SceneBase* SceneFactory::CreateScene(eSceneType next_scene_type)
 		return dynamic_cast
 
 			<SceneBase*>(new ResultScene());
+
+	case eSceneType::eEnd:
+		return dynamic_cast
+
+			<SceneBase*>(new EndScene());
 	default:
 		return nullptr;
 	}

@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Scene\End\EndScene.cpp" />
+    <ClCompile Include="Source\Scene\Help\HelpScene.cpp" />
     <ClCompile Include="Object\Floor\FloorBase.cpp" />
     <ClCompile Include="Object\GameObjectManager.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
@@ -149,6 +151,8 @@
     <ClCompile Include="Utility\PadInputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Scene\End\EndScene.h" />
+    <ClInclude Include="Source\Scene\Help\HelpScene.h" />
     <ClInclude Include="Object\Floor\FloorBase.h" />
     <ClInclude Include="Object\GameObjectManager.h" />
     <ClInclude Include="Object\GameObject.h" />
@@ -167,7 +171,6 @@
     <ClInclude Include="Source\Scene\SceneManager.h" />
     <ClInclude Include="Source\Scene\SceneType.h" />
     <ClInclude Include="Source\Scene\Title\TitleScene.h" />
-    <ClInclude Include="Utility\Enum.h" />
     <ClInclude Include="Utility\PadInputManager.h" />
     <ClInclude Include="Utility\Singleton.h" />
     <ClInclude Include="Utility\Vector2D.h" />

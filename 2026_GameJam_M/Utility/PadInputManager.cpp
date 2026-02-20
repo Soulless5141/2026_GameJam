@@ -45,14 +45,14 @@ eInputState PadInputManager::GetKeyInputState(int keycode)
 			}
 			else
 			{
-				return eInputState::eRelease;
+				return eInputState::eReleased;
 			}
 		}
 		else
 		{
 			if (now_key.Buttons[keycode] == TRUE)
 			{
-				return eInputState::ePress;
+				return eInputState::ePressed;
 			}
 			else
 			{
