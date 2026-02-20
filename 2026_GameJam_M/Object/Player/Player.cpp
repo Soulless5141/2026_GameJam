@@ -80,10 +80,7 @@ void Player::Update(float delta_second)
     }
 
 
-    //チャージ処理
-    InputManager* input = InputManager::GetInstance();
 
-    bool isGround = (location.y >= 400.0f);
 
     // 押している間チャージ
     if (input->GetKeyState(KEY_INPUT_X) == eInputState::ePressed && isGround)
