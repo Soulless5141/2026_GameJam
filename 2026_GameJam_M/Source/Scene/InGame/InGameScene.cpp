@@ -1,7 +1,7 @@
 #include "InGameScene.h"
 #include "../../Input/InputManager.h"
 #include <DxLib.h>
-InGameScene::InGameScene()
+InGameScene::InGameScene() : time(0)
 {
 
 }
@@ -13,8 +13,9 @@ InGameScene::~InGameScene()
 
 void InGameScene::Initialize()
 {
+	time = 123;
 	// マップデータ読み込み生成処理
-	LoadStageMapCSV();
+	//LoadStageMapCSV();
 }
 
 /// <summary>
@@ -34,6 +35,8 @@ eSceneType InGameScene::Update()
 void InGameScene::Draw() const
 {
 	DrawString(10, 10, "インゲーム画面", GetColor(255, 255, 255));
+	DrawString(10, 100, "時間制限", GetColor(255, 255, 255));
+	DrawFormatString(10, 200, GetColor(255, 255, 255), "%d", time);
 }
 
 void InGameScene::Finalize()

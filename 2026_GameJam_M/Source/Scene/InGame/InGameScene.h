@@ -7,6 +7,7 @@ class InGameScene :public SceneBase
 {
 private:
 	int charge;   // どれぐらい溜めたか
+	int time;
 
 
 public:
@@ -26,7 +27,7 @@ public:
 	}
 
 private:
-	/// <summary>
+	/*/// <summary>
 	/// ステージマップ読み込み処理
 	/// </summary>
 	void LoadStageMapCSV();
@@ -37,5 +38,5 @@ private:
 	/// <summary>
 	/// オブジェクト削除
 	/// </summary>
-	void DeleteStage();
+	void DeleteStage();*/
 };
