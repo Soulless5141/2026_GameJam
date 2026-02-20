@@ -13,7 +13,8 @@ InGameScene::~InGameScene()
 
 void InGameScene::Initialize()
 {
-
+	// マップデータ読み込み生成処理
+	LoadStageMapCSV();
 }
 
 /// <summary>
