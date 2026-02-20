@@ -133,10 +133,13 @@
   <ItemGroup>
     <ClCompile Include="Source\Scene\End\EndScene.cpp" />
     <ClCompile Include="Source\Scene\Help\HelpScene.cpp" />
+    <ClCompile Include="Object\Floor\FloorBase.cpp" />
+    <ClCompile Include="Object\GameObjectManager.cpp" />
+    <ClCompile Include="Object\GameObject.cpp" />
+    <ClCompile Include="Object\Floor\Floor.cpp" />
     <ClCompile Include="Utility\ResourceManager.cpp" />
     <ClCompile Include="Utility\Collision.cpp" />
     <ClCompile Include="Utility\Camera.cpp" />
-    <ClCompile Include="Object\Block.cpp" />
     <ClCompile Include="Object\Player\Player.cpp" />
     <ClCompile Include="Source\AppMain.cpp" />
     <ClCompile Include="Source\Input\InputManager.cpp" />
@@ -147,13 +150,16 @@
     <ClCompile Include="Source\Scene\Title\TitleScene.cpp" />
     <ClCompile Include="Utility\PadInputManager.cpp" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup>/
     <ClInclude Include="Source\Scene\End\EndScene.h" />
     <ClInclude Include="Source\Scene\Help\HelpScene.h" />
+    <ClInclude Include="Object\Floor\FloorBase.h" />
+    <ClInclude Include="Object\GameObjectManager.h" />
+    <ClInclude Include="Object\GameObject.h" />
+    <ClInclude Include="Object\Floor\Floor.h" />
     <ClInclude Include="Utility\ResourceManager.h" />
     <ClInclude Include="Utility\Collision.h" />
     <ClInclude Include="Utility\Camera.h" />
-    <ClInclude Include="Object\Block.h" />
     <ClInclude Include="Object\Player\Enum\PlayerState.h" />
     <ClInclude Include="Object\Player\Player.h" />
     <ClInclude Include="Source\Input\InputManager.h" />
