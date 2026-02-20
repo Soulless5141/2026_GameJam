@@ -150,7 +150,7 @@
     <ClCompile Include="Source\Scene\Title\TitleScene.cpp" />
     <ClCompile Include="Utility\PadInputManager.cpp" />
   </ItemGroup>
-  <ItemGroup>/
+  <ItemGroup>
     <ClInclude Include="Source\Scene\End\EndScene.h" />
     <ClInclude Include="Source\Scene\Help\HelpScene.h" />
     <ClInclude Include="Object\Floor\FloorBase.h" />
