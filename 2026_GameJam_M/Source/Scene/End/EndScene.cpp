@@ -1,5 +1,6 @@
 #include "EndScene.h"
 #include "../../Input/InputManager.h"
+#include"../../../Utility/PadInputManager.h"
 #include <DxLib.h>
 
 EndScene::EndScene()
@@ -18,6 +19,11 @@ eSceneType EndScene::Update()
 	if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
 	{
 		return eSceneType::eTitle;
+	}
+	PadInputManager* pad = PadInputManager::GetInstance();
+	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
+	{
+		return eSceneType::eHelp;
 	}
 	return GetNowSceneType();
 }
