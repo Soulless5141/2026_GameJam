@@ -72,10 +72,9 @@ void TitleScene::Draw() const
 	GetGraphSize(Box_image, &boxWidth, &boxHeight);
 
 	int screenWidth, screenHeight;
-	GetDrawScreenSize(&screenWidth, &screenHeight);
-	int screenWidth = 1280;				// サイズに合わせる
-	int x = screenWidth - boxWidth - 50; // 右から50px余白
-	int y = 200;
+	GetDrawScreenSize(&screenWidth, &screenHeight);				
+	int x = 250;
+	int y = 100;
 
 	DrawGraph(x, y, Box_image, TRUE);
 
