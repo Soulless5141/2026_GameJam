@@ -6,7 +6,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 {
 	ChangeWindowMode(FALSE);
 	SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
-	//SetGraphMode(640, 480, 32);
+	SetGraphMode(1920, 1080, 32);
 	if (DxLib_Init() == -1)
 	{
 		return -1;
