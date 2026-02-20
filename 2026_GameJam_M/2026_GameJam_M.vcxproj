@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Scene\End\EndScene.cpp" />
+    <ClCompile Include="Source\Scene\Help\HelpScene.cpp" />
     <ClCompile Include="Utility\ResourceManager.cpp" />
     <ClCompile Include="Utility\Collision.cpp" />
     <ClCompile Include="Utility\Camera.cpp" />
@@ -146,6 +148,8 @@
     <ClCompile Include="Utility\PadInputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Scene\End\EndScene.h" />
+    <ClInclude Include="Source\Scene\Help\HelpScene.h" />
     <ClInclude Include="Utility\ResourceManager.h" />
     <ClInclude Include="Utility\Collision.h" />
     <ClInclude Include="Utility\Camera.h" />

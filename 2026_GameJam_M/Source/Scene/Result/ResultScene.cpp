@@ -25,7 +25,7 @@ eSceneType ResultScene::Update()
 	InputManager* input = InputManager::GetInstance();
 	if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
 	{
-		return eSceneType::eTitle;
+		return eSceneType::eEnd;
 	}
 
 	else if (input->GetKeyState(KEY_INPUT_TAB) == eInputState::ePressed)

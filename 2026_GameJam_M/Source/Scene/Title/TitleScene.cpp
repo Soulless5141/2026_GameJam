@@ -17,7 +17,7 @@ eSceneType TitleScene::Update()
 	InputManager* input = InputManager::GetInstance();
 	if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
 	{
-		return eSceneType::eInGame;
+		return eSceneType::eHelp;
 	}
 	return GetNowSceneType();
 }
