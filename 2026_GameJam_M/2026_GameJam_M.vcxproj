@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Floor\Goal.cpp" />
     <ClCompile Include="Source\Scene\End\EndScene.cpp" />
     <ClCompile Include="Source\Scene\Help\HelpScene.cpp" />
     <ClCompile Include="Object\Floor\FloorBase.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="Utility\PadInputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Floor\Goal.h" />
     <ClInclude Include="Source\Scene\End\EndScene.h" />
     <ClInclude Include="Source\Scene\Help\HelpScene.h" />
     <ClInclude Include="Object\Floor\FloorBase.h" />

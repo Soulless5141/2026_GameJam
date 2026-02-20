@@ -2,7 +2,7 @@
 #include "DxLib.h"
 
 GameObject::GameObject() :
-	reverse(false)
+	reverse(false),z_layer(0),owner_scene(0)
 {
 
 }
@@ -64,10 +64,10 @@ const unsigned char GameObject::GetZLayer() const
 /// ‰Â“®«î•ñ‚Ìæ“¾ˆ—
 /// </summary>
 /// <returns>‰Â“®«î•ñ</returns>
-const bool GameObject::GetMobility() const
-{
-	return is_mobility;
-}
+//const bool GameObject::GetMobility() const
+//{
+//	return is_mobility;
+//}
 
 int GameObject::SetOwnerScene(class SceneBase* scene)
 {

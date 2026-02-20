@@ -23,7 +23,7 @@ protected:
 	Collision collision;
 	int image;
 	unsigned char z_layer;
-	bool is_mobility;
+	/*bool is_mobility;*/
 	bool reverse;
 
 
@@ -41,7 +41,7 @@ public:
 	void SetLocation(const Vector2D&);
 	const Collision& GetCollision() const;
 	const unsigned char GetZLayer() const;
-	const bool GetMobility() const;
+	/*const bool GetMobility() const;*/
 	/// <summary>
 	/// Š—LƒV[ƒ“î•ñ‚Ìİ’è
 	/// </summary>
