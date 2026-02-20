@@ -5,112 +5,119 @@
 
 TitleScene::TitleScene()
 {
-
 }
+
 TitleScene::~TitleScene()
 {
 }
+
 void TitleScene::Initialize()
 {
-	cursor_number = 0;
-	cursor_y = 360;
-	Title_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Haikei1.png");
-	Box_image = LoadGraph("Resource/Image/Title/BOX.png");
+    cursor_number = 0;
+    cursor_y = 0;
+
+    Title_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Haikei1.png");
+    Box_image = LoadGraph("Resource/Image/Title/BOX.png");
+    Arrow_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut1.png");
 }
+
 eSceneType TitleScene::Update()
 {
-	PadInputManager* pad_input = PadInputManager::GetInstance();
-	if (is_result == false) {
+    PadInputManager* pad_input = PadInputManager::GetInstance();
 
+    if (pad_input->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
+    {
+        switch (cursor_number)
+        {
+        case 0:
+            return eSceneType::eHelp;
+        case 1:
+            return eSceneType::eResult;
+        case 2:
+            return eSceneType::eEnd;
+        }
+    }
 
-		//Bボタンが押されたら
-		if (pad_input->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
-		{
-			
-			switch (cursor_number)
-			{
-			case 0:
-				//インゲーム画面に移動
-				return eSceneType::eInGame;
-			case 1:
+    SelectCursor();
 
-				return eSceneType::eHelp;
-			case 2:
-				//return eSceneType::eEnd;
-				is_result = true;
-			default:
-				break;
-			}
-		}
-		SelectCursor();
-	}
-	else
-	{
-		if (end_frame_cnt++ > 60)
-		{
-			end_frame_cnt = 0;
-			end_count++;
-		}
-		if (end_count > 5)
-		{
-			return eSceneType::eEnd;
-
-		}
-
-	}
-
-	return GetNowSceneType();
+    return GetNowSceneType();
 }
 
 void TitleScene::Draw() const
 {
 
-	DrawGraph(0, 0, Title_image, TRUE);
 
-	int boxWidth;
-	int boxHeight;
-	GetGraphSize(Box_image, &boxWidth, &boxHeight);
+    int screenWidth, screenHeight;
+    GetDrawScreenSize(&screenWidth, &screenHeight);
 
-	int screenWidth, screenHeight;
-	GetDrawScreenSize(&screenWidth, &screenHeight);				
-	int x = 250;
-	int y = 100;
+    // 背景（全画面）
+    DrawExtendGraph(0, 0, screenWidth, screenHeight, Title_image, TRUE);
 
-	DrawGraph(x, y, Box_image, TRUE);
+    // Box（右中央）
+    int boxW, boxH;
+    GetGraphSize(Box_image, &boxW, &boxH);
 
-	DrawString(10, 10, "タイトル画面", GetColor(255, 255, 255));
+    int boxX = screenWidth - boxW - 80;
+    int boxY = screenHeight / 2 - boxH / 2;
+
+    DrawGraph(boxX, boxY, Box_image, TRUE);
+
+    // メニュー文字
+    int textStartY = boxY + 80;
+    int lineSpace = 80;
+
+    DrawString(boxX + 120, textStartY + lineSpace * 0, "START", GetColor(255, 255, 255));
+    DrawString(boxX + 120, textStartY + lineSpace * 1, "HELP", GetColor(255, 255, 255));
+    DrawString(boxX + 120, textStartY + lineSpace * 2, "END", GetColor(255, 255, 255));
+
+    // Arrow（縮小表示）
+    int arrowW, arrowH;
+    GetGraphSize(Arrow_image, &arrowW, &arrowH);
+
+    int smallW = arrowW / 9;
+    int smallH = arrowH / 9;
+    
+    //矢印のXの位置（文字の左）
+    int arrowX = boxX + 60;
+    int arrowY = textStartY
+        + lineSpace * cursor_number
+        + (lineSpace / 2)
+        - (smallH / 2);
+    //int arrowY = textStartY + lineSpace * cursor_number;
+
+    DrawExtendGraph(
+        arrowX,
+        arrowY,
+        arrowX + smallW,
+        arrowY + smallH,
+        Arrow_image,
+        TRUE
+    );
 }
+
 void TitleScene::Finalize()
 {
-	DeleteGraph(Title_image);
-	DeleteGraph(Box_image);
-
+    DeleteGraph(Title_image);
+    DeleteGraph(Box_image);
+    DeleteGraph(Arrow_image);
 }
 
 void TitleScene::SelectCursor()
 {
-	PadInputManager* pad_input = PadInputManager::GetInstance();
+    PadInputManager* pad_input = PadInputManager::GetInstance();
 
-	if (pad_input->GetKeyInputState(XINPUT_BUTTON_DPAD_UP) == eInputState::ePressed)
-	{
-		cursor_number--;
-		if (cursor_number < 0)
-		{
-			cursor_number = 2;
-		}
-		PlaySoundMem(SE1, DX_PLAYTYPE_BACK, TRUE);
+    if (pad_input->GetKeyInputState(XINPUT_BUTTON_DPAD_UP) == eInputState::ePressed)
+    {
+        cursor_number--;
+        if (cursor_number < 0)
+        {
+            cursor_number = 2;
+        }
+    }
 
-	}
-	if (pad_input->GetKeyInputState(XINPUT_BUTTON_DPAD_DOWN) == eInputState::ePressed)
-	{
-		cursor_number++;
-		cursor_number = cursor_number % 3;
-
-		PlaySoundMem(SE1, DX_PLAYTYPE_BACK, TRUE);
-	}
-
-	cursor_y = 160 + (cursor_number * 80);
-
-
+    if (pad_input->GetKeyInputState(XINPUT_BUTTON_DPAD_DOWN) == eInputState::ePressed)
+    {
+        cursor_number++;
+        cursor_number %= 3;
+    }
 }
-

@@ -10,6 +10,7 @@ private:
 	int cursor_number;
 	int Title_image;
 	int Box_image;
+	int Arrow_image;
 	int cursor_y;
 	int BGM;
 	int SE1;
