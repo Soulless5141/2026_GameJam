@@ -35,7 +35,7 @@ eSceneType ResultScene::Update()
 		return eSceneType::eEnd;
 	}
 
-	else if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
+	else if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::ePressed)
 	{
 		return eSceneType::eInGame;
 	}

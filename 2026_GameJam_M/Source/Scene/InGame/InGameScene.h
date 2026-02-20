@@ -6,11 +6,13 @@ class InGameScene :public SceneBase
 
 {
 private:
+	
 	int charge;   // ‚Ç‚ê‚®‚ç‚¢—­‚ß‚½‚©
 	int time;
 
 
 public:
+
 	InGameScene();
 	virtual ~InGameScene();
 
