@@ -8,9 +8,8 @@ enum class eObjectType : unsigned char
 {
 	eNone,
 	ePlayer,
-	eEnemy,
-	eBlock,
-	eItem
+	eFloor,
+	eGoal
 };
 
 // “–‚½‚è”»’èŠî’êƒNƒ‰ƒX
