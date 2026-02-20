@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "DxLib.h"
 #include "../../Utility/ResourceManager.h"
+#include "../../Source/Input/InputManager.h"
+#include"../../Utility/PadInputManager.h"
 
 #include <math.h>
 #include <iostream>
@@ -12,8 +14,8 @@
 
 
 Player::Player() :
-	location(0.0f), 
-	velocity(0.0f),
+    location(0.0f),
+    velocity(0.0f),
     box_size(0.0f),
     g_velocity(0.0f)
 {
@@ -44,34 +46,75 @@ void Player::Initialize()
 
 void Player::Update(float delta_second)
 {
-	//ジャンプ処理
+    InputManager* input = InputManager::GetInstance();
+
+    bool isGround = (location.y >= 400.0f);
+
+    // ★ 押した瞬間だけ右ジャンプ
+    if (input->GetKeyState(KEY_INPUT_RIGHT) == eInputState::ePressed)
+    {
+        g_velocity = 0.0f;
+        velocity.x = 200.0f;
+        velocity.y = -600.0f;
+    }
+    //★ 押した瞬間だけ左ジャンプ
+    if (input->GetKeyState(KEY_INPUT_LEFT) == eInputState::ePressed && isGround)
+    {
+        g_velocity = 0.0f;
+        velocity.x = -200.0;
+        velocity.y = -600.0f;
+    }
 
 
-        // ===== 地面にいるか判定 =====
-        bool isGround = (location.y >= 400.0f);
+    // 重力
+    g_velocity += D_GRAVITY * delta_second;
+    velocity.y += g_velocity * delta_second;
 
-        // ===== ジャンプ入力（SPACE） =====
-        if (CheckHitKey(KEY_INPUT_SPACE) && isGround)
+    location += velocity * delta_second;
+
+    if (location.y > 400.0f)
+    {
+        location.y = 400.0f;
+        velocity.y = 0.0f;
+        g_velocity = 0.0f;
+    }
+
+
+    //チャージ処理
+    InputManager* input = InputManager::GetInstance();
+
+    bool isGround = (location.y >= 400.0f);
+
+    // 押している間チャージ
+    if (input->GetKeyState(KEY_INPUT_X) == eInputState::ePressed && isGround)
+    {
+        charge_Time += delta_second;
+
+        if (charge_Time >= 3.0f)
         {
-            g_velocity = 0.0f;          // 重力リセット
-            velocity.y = -600.0f;       // ジャンプ初速
-        }
-
-        // ===== 重力 =====
-        g_velocity += D_GRAVITY * delta_second;
-        velocity.y += g_velocity * delta_second;
-
-        // ===== 位置更新 =====
-        location += velocity * delta_second;
-
-        // ===== 地面処理 =====
-        if (location.y > 400.0f)
-        {
-            location.y = 400.0f;
-            velocity.y = 0.0f;
-            g_velocity = 0.0f;
+            velocity.y = -900.0f;
+            charge_Time = 0.0f;
         }
     }
+    else
+    {
+        // 離した瞬間ジャンプ
+        if (charge_Time > 0.0f)
+        {
+            if (charge_Time < 1.0f)
+                velocity.y = -700.0f;
+            else if (charge_Time < 2.0f)
+                velocity.y = -800.0f;
+            else
+                velocity.y = -900.0f;
+
+            charge_Time = 0.0f;
+        }
+    }
+
+
+
+}
 void Player::Draw(const Vector2D& screen_ofset)const
 {
     Vector2D tl = location - (box_size * 0.5f);

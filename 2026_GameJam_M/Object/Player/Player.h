@@ -19,6 +19,10 @@ public:
 	Vector2D velocity;		//移動量
 	Vector2D box_size;		//矩形
 	float g_velocity;		//重力速度
+	float Time;				//タイム
+	int jump_up;			//ジャンプ力
+	float charge_Time = 0.0f;
+	bool isCharging = false;
 public:
 	Player();
 	~Player();
