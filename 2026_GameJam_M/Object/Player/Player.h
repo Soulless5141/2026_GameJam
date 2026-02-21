@@ -21,19 +21,24 @@ public:
 	float g_velocity;		//重力速度
 	float Time;				//タイム
 	int jump_up;			//ジャンプ力
+	int jump_direction = 0;		//ジャンプ方向
+	float charge_Time_max = 3.0f;	//チャージ最大
 	float charge_Time = 0.0f;
 	bool isCharging = false;
 public:
 	Player();
 	~Player();
 public:
-	void Initialize();
-	void Update(float delta_second);
-	virtual void Draw(const Vector2D& screen_ofset) const;
+	virtual void Initialize()override;
+	virtual void Draw(const Vector2D& screen_offset) const override;
+	virtual void Update(float delta_second) override;
 	void Finalize();
-public:
-	void Movement(float param);
-	void Jumpmovement(float param);
+
+	/// <summary>
+	/// 当たり判定通知処理
+	/// </summary>
+	/// <param name="hit_object">当たったゲームオブジェクトのポインタ</param>
+	/*virtual void OnHitCollision(GameObject* hit_object) override;*/
 
 };
 

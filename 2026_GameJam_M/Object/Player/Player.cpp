@@ -8,7 +8,6 @@
 #include <iostream>
 
 //重力
-#define D_GRAVITY (200)
 #define jamp_Max_pawa -600.0f
 #define MAX_CHARGE_TIME 1.0f 
 
@@ -49,39 +48,48 @@ void Player::Initialize()
 
 void Player::Update(float delta_second)
 {
-    InputManager* input = InputManager::GetInstance();
 
     bool isGround = (location.y >= 400.0f);
-
-    // ★ 押した瞬間だけ右ジャンプ
-    if (input->GetKeyState(KEY_INPUT_RIGHT) == eInputState::ePressed)
-    {
-        g_velocity = 0.0f;
-        velocity.x = 200.0f;
-        velocity.y = -600.0f;
-    }
-    //★ 押した瞬間だけ左ジャンプ
-    if (input->GetKeyState(KEY_INPUT_LEFT) == eInputState::ePressed && isGround)
-    {
-        g_velocity = 0.0f;
-        velocity.x = -200.0;
-        velocity.y = -600.0f;
-    }
-
     PadInputManager* pad = PadInputManager::GetInstance();
+    image= LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_right.png");
+
 
     if (pad->GetKeyInputState(XINPUT_BUTTON_RIGHT_SHOULDER) == eInputState::ePressed)
     {
-        g_velocity = 0.0f;
-        velocity.x = 200.0f;
-        velocity.y = -600.0f;
+        jump_direction = 1;
     }
 
     if (pad->GetKeyInputState(XINPUT_BUTTON_LEFT_SHOULDER) == eInputState::ePressed)
     {
+        jump_direction = -1;
+    }
+
+    // 押している間チャージ
+    if (pad->GetKeyInputState(XINPUT_BUTTON_X) == eInputState::ePressed)
+    {
+        charge_Time += delta_second;
+
+        if (charge_Time > charge_Time_max)
+        {
+            charge_Time = charge_Time_max;
+        }
+    }
+    //離したら飛ぶ
+    if (pad->GetKeyInputState(XINPUT_BUTTON_X) == eInputState::eReleased && isGround)
+    {
         g_velocity = 0.0f;
-        velocity.x = -200.0;
-        velocity.y = -600.0f;
+
+        float minJump = -400.0f;   // 最小ジャンプ力
+        float maxJump = -1000.0f;  // 最大ジャンプ力
+
+        float powerRate = charge_Time / charge_Time_max;  // 0.0～1.0
+
+        float jumpPower = minJump + (maxJump - minJump) * powerRate;
+
+        velocity.y = jumpPower;
+        velocity.x = 300.0f * jump_direction;
+
+        charge_Time = 0.0f;
     }
 
     // 重力
@@ -99,56 +107,21 @@ void Player::Update(float delta_second)
 
 
 
-
-    // 押している間チャージ
-    if (input->GetKeyState(KEY_INPUT_X) == eInputState::ePressed && isGround)
-    {
-        charge_Time += delta_second;
-
-        if (charge_Time >= 3.0f)
-        {
-            velocity.y = -900.0f;
-            charge_Time = 0.0f;
-        }
-    }
-    else
-    {
-        // 離した瞬間ジャンプ
-        if (charge_Time > 0.0f)
-        {
-            if (charge_Time < 1.0f)
-                velocity.y = -700.0f;
-            else if (charge_Time < 2.0f)
-                velocity.y = -800.0f;
-            else
-                velocity.y = -900.0f;
-
-            charge_Time = 0.0f;
-        }
-    }
-
-
-
 }
 void Player::Draw(const Vector2D& screen_ofset)const
 {
-    Vector2D tl = location - (box_size * 0.5f);
-    Vector2D br = tl + box_size;
+    //image(縮小表示)
+    int imageW, imageH;
+    GetGraphSize(image, &imageW, &imageH);
 
-    //DrawBoxAA(tl.x, tl.y, br.x, br.y, GetColor(255, 0, 0), TRUE);
+    int smallW = imageW / 9;
+    int smallH = imageH / 9;
+
+
     __super::Draw(screen_ofset);
 }
 void Player::Finalize()
 {
 }
 
-void Player::Movement(float param)
-{
-	velocity.x += param;
-}
-
-void Player::Jumpmovement(float param)
-{
-	velocity.y = -300.0f;
-}
 
