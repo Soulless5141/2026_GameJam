@@ -5,6 +5,7 @@
 #include "Result/ResultScene.h"
 #include "End/EndScene.h"
 #include "TestMap/TestScene.h"
+#include "Ranking/RankingScene.h"
 SceneBase* SceneFactory::CreateScene(eSceneType next_scene_type)
 
 {
@@ -40,10 +41,10 @@ SceneBase* SceneFactory::CreateScene(eSceneType next_scene_type)
 
 			<SceneBase*>(new EndScene());
 
-	case eSceneType::eTest:
+	case eSceneType::eRanking:
 		return dynamic_cast
 
-			<SceneBase*>(new TestScene());
+			<SceneBase*>(new RankingScene());
 
 	default:
 		return nullptr;

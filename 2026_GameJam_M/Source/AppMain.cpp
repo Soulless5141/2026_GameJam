@@ -34,7 +34,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 
 		pad->Update();
 
-		scene_manager->Update(delta);   // š ‚±‚±‚ðC³
+		scene_manager->Update(delta);   
 
 		ClearDrawScreen();
 		scene_manager->Draw();

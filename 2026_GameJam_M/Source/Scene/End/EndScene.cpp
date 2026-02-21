@@ -15,11 +15,6 @@ void EndScene::Initialize()
 }
 eSceneType EndScene::Update(const float& delta_second)
 {
-	InputManager* input = InputManager::GetInstance();
-	if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
-	{
-		return eSceneType::eTitle;
-	}
 	PadInputManager* pad = PadInputManager::GetInstance();
 	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
 	{

@@ -18,8 +18,9 @@ void TitleScene::Initialize()
     cursor_y = 0;
 
     Title_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Haikei1.png");
-    Box_image = LoadGraph("Resource/Image/Title/BOX.png");
+    Box_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleFrame.png");
     Arrow_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut1.png");
+    font_handle = CreateFontToHandle(NULL, 40, 3);
 }
 
 eSceneType TitleScene::Update(const float& delta_second)
@@ -44,17 +45,13 @@ eSceneType TitleScene::Update(const float& delta_second)
     return GetNowSceneType();
 }
 
-void TitleScene::Draw() 
+void TitleScene::Draw()
 {
-
-
     int screenWidth, screenHeight;
     GetDrawScreenSize(&screenWidth, &screenHeight);
 
-    // 背景（全画面）
     DrawExtendGraph(0, 0, screenWidth, screenHeight, Title_image, TRUE);
 
-    // Box（右中央）
     int boxW, boxH;
     GetGraphSize(Box_image, &boxW, &boxH);
 
@@ -63,37 +60,54 @@ void TitleScene::Draw()
 
     DrawGraph(boxX, boxY, Box_image, TRUE);
 
-    // メニュー文字
-    int textStartY = boxY + 80;
-    int lineSpace = 80;
+    // 茶色
+    int brown = GetColor(139, 69, 19);
 
-    DrawString(boxX + 120, textStartY + lineSpace * 0, "START", GetColor(255, 255, 255));
-    DrawString(boxX + 120, textStartY + lineSpace * 1, "HELP", GetColor(255, 255, 255));
-    DrawString(boxX + 120, textStartY + lineSpace * 2, "END", GetColor(255, 255, 255));
+    const char* menu[3] = { "START", "HELP", "END" };
 
-    // Arrow（縮小表示）
+    int baseY = boxY + 200;
+    int lineSpace = 90;
+
+    // ★ Arrowの基準位置
+    int arrowBaseX = boxX + 180;
+    int arrowStartY = baseY;
+
+    // 画像サイズ取得（1回だけ）
     int arrowW, arrowH;
     GetGraphSize(Arrow_image, &arrowW, &arrowH);
 
     int smallW = arrowW / 9;
     int smallH = arrowH / 9;
-    
-    //矢印のXの位置（文字の左）
-    int arrowX = boxX + 60;
-    int arrowY = textStartY
-        + lineSpace * cursor_number
-        + (lineSpace / 2)
-        - (smallH / 2);
-    //int arrowY = textStartY + lineSpace * cursor_number;
 
-    DrawExtendGraph(
-        arrowX,
-        arrowY,
-        arrowX + smallW,
-        arrowY + smallH,
-        Arrow_image,
-        TRUE
-    );
+    for (int i = 0; i < 3; i++)
+    {
+        int arrowY = arrowStartY + lineSpace * i;
+
+        // ★ 選択中だけArrow表示
+        if (i == cursor_number)
+        {
+            DrawExtendGraph(
+                arrowBaseX,
+                arrowY,
+                arrowBaseX + smallW,
+                arrowY + smallH,
+                Arrow_image,
+                TRUE
+            );
+        }
+
+        // ★ 文字は常にArrowの右側
+        int textX = arrowBaseX + smallW + 30;
+        int textY = arrowY + (smallH / 2) - 20;
+
+        DrawStringToHandle(
+            textX,
+            textY,
+            menu[i],
+            GetColor(139, 69, 19),
+            font_handle
+        );
+    }
 }
 
 void TitleScene::Finalize()

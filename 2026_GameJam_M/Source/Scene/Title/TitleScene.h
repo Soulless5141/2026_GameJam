@@ -18,6 +18,8 @@ private:
 
 	bool is_result;
 
+	int font_handle;
+
 	int end_img;
 	int end_count;
 	int end_frame_cnt;

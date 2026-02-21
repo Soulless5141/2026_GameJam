@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 
-
 // 1人分のランキングデータ
 struct RankData
 {
@@ -12,7 +11,7 @@ struct RankData
 
 // ランキング管理クラス
 // CSVの読み込み・保存・追加・取得を行う
-class Ranking
+class RankingManager
 {
 private:
     std::vector<RankData> ranking_data;   // ランキングデータ保存用

@@ -4,7 +4,7 @@
 #include <algorithm>
 
 // CSVから読み込み
-void Ranking::Load()
+void RankingManager::Load()
 {
     ranking_data.clear();
 
@@ -35,7 +35,7 @@ void Ranking::Load()
 }
 
 // CSVへ保存
-void Ranking::Save()
+void RankingManager::Save()
 {
     std::ofstream file(file_path);
 
@@ -51,7 +51,7 @@ void Ranking::Save()
 
 // スコア
 // 高い順にソートして上位10件だけ残す
-void Ranking::AddScore(const std::string& name, int score)
+void RankingManager::AddScore(const std::string& name, int score)
 {
     RankData new_data;
     new_data.name = name;
@@ -74,7 +74,7 @@ void Ranking::AddScore(const std::string& name, int score)
 }
 
 // データ取得
-const std::vector<RankData>& Ranking::GetData() const
+const std::vector<RankData>& RankingManager::GetData() const
 {
     return ranking_data;
 }

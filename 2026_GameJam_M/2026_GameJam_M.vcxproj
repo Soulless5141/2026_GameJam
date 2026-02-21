@@ -138,7 +138,7 @@
     <ClCompile Include="Object\GameObjectManager.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\Floor\Floor.cpp" />
-    <ClCompile Include="Source\Scene\RankingScene\RankingScene.cpp" />
+    <ClCompile Include="Source\Scene\Ranking\RankingScene.cpp" />
     <ClCompile Include="Source\Scene\TestMap\TestScene.cpp" />
     <ClCompile Include="Utility\RankingManager\RankingManager.cpp" />
     <ClCompile Include="Utility\ResourceManager.cpp" />
@@ -162,7 +162,7 @@
     <ClInclude Include="Object\GameObjectManager.h" />
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\Floor\Floor.h" />
-    <ClInclude Include="Source\Scene\RankingScene\RankingScene.h" />
+    <ClInclude Include="Source\Scene\Ranking\RankingScene.h" />
     <ClInclude Include="Source\Scene\TestMap\TestScene.h" />
     <ClInclude Include="Utility\RankingManager\RankingManager.h" />
     <ClInclude Include="Utility\ResourceManager.h" />

@@ -1,17 +1,12 @@
 #pragma once
 
 #include "../SceneBase.h"
-#include "../../../Utility/RankingManager/RankingManager.h"
 
 class ResultScene : public SceneBase
 {
 private:
-    Ranking ranking;
-    int final_score;
-    bool isRegistered;
-    int input_handle;       //名前入力用
-    char Player_name[32];   //入力文字保存（32文字）
-    bool isInputMode;    //入力中かどうか
+	int final_score;    // 最終スコア
+
 
 public:
     ResultScene();

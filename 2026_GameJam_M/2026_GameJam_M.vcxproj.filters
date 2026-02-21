@@ -78,7 +78,7 @@
     <ClCompile Include="Utility\RankingManager\RankingManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene\RankingScene\RankingScene.cpp">
+    <ClCompile Include="Source\Scene\Ranking\RankingScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,7 +161,7 @@
     <ClInclude Include="Utility\RankingManager\RankingManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene\RankingScene\RankingScene.h">
+    <ClInclude Include="Source\Scene\Ranking\RankingScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

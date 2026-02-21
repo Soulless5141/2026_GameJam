@@ -17,7 +17,7 @@ public:
 
 public:
     void Initialize();
-    void Update(float delta_second);   // š ˆø”’Ç‰Á
+    void Update(float delta_second);   
     void Draw() const;
     void Finalize();
 

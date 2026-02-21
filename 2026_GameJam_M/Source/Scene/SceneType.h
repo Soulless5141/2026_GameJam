@@ -8,4 +8,5 @@ enum class eSceneType :unsigned char
 	eResult,	//リザリト
 	eEnd,		//エンド
 	eTest,		//テスト
+	eRanking,	//ランキング
 };
