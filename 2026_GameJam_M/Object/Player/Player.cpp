@@ -8,7 +8,7 @@
 #include <iostream>
 
 //重力
-#define D_GRAVITY (50.0f)
+#define D_GRAVITY (1000.0f)
 #define jamp_Max_pawa -600.0f
 #define MAX_CHARGE_TIME 1.0f 
 
@@ -80,8 +80,8 @@ void Player::Update(float delta_second)
     {
         g_velocity = 0.0f;
 
-        float minJump = -100.0f;   // 最小ジャンプ力
-        float maxJump = -300.0f;  // 最大ジャンプ力
+        float minJump = -800.0f;
+        float maxJump = -500.0f;
 
         float powerRate = charge_Time / charge_Time_max;  // 0.0～1.0
 
@@ -96,13 +96,12 @@ void Player::Update(float delta_second)
     // 重力
     velocity.y += D_GRAVITY * delta_second;
 
-    // 空中なら横減速
-    if (!isGround)
-    {
-        velocity.x *= 0.90f;
-    }
+    //// 空中なら横減速
+    //if (!isGround)
+    //{
+    //    velocity.x *= 0.90f;
+    //}
 
-    location += velocity * delta_second;
     location += velocity * delta_second;
     
 
@@ -110,6 +109,7 @@ void Player::Update(float delta_second)
     {
         location.y = 400.0f;
         velocity.y = 0.0f;
+        velocity.x = 0.0f;  // 着地して止める
         g_velocity = 0.0f;
     }
 
