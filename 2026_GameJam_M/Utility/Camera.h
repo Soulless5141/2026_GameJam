@@ -17,6 +17,7 @@ private:
 	Vector2D screen_location;
 
 public:
+	void CameraInit();
 	void CameraUpdate(Vector2D location);
 	Vector2D ConvertLcoationToScreen(Vector2D location);
 	Vector2D GetCameraLocation();
