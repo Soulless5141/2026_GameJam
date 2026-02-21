@@ -15,14 +15,12 @@ public:
 	std::vector<int> Dead_animetion;		//死亡アニメーション
 	std::vector<int> Goal_animetion;		//ゴールアニメーション
 
-	Vector2D location;		//位置座標
 	Vector2D velocity;		//移動量
 	Vector2D box_size;		//矩形
 	float g_velocity;		//重力速度
 	float Time;				//タイム
 	int jump_up;			//ジャンプ力
 	int jump_direction = 0;		//ジャンプ方向
-	float charge_Time_max = 3.0f;	//チャージ最大
 	float charge_Time = 0.0f;
 	bool isCharging = false;
 public:

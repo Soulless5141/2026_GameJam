@@ -4,7 +4,7 @@
 #include "../Utility/Camera.h"
 #include "../Utility/ResourceManager.h"
 
-#define D_GRAVITY (9.807f)     //重力加速度(m/ss)
+#define D_GRAVITY (800.0f)     //重力加速度(m/ss)
 
 /// <summary>
 /// 可動性の種類

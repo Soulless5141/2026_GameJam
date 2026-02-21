@@ -8,13 +8,13 @@
 #include <iostream>
 
 //重力
-#define D_GRAVITY (1000.0f)
-#define jamp_Max_pawa -600.0f
-#define MAX_CHARGE_TIME 1.0f 
+
+#define GROUND_Y (400.0f)
+#define MAX_CHARGE_TIME (3.0f)
+
 
 
 Player::Player() :
-    location(0.0f),
     velocity(0.0f),
     box_size(0.0f),
     g_velocity(0.0f)
@@ -49,12 +49,10 @@ void Player::Initialize()
 
 void Player::Update(float delta_second)
 {
-
-    bool isGround = (location.y >= 400.0f);
+    bool isGround = (location.y >= GROUND_Y - 0.1f);
     PadInputManager* pad = PadInputManager::GetInstance();
-   
 
-
+    // ===== 方向決定 =====
     if (pad->GetKeyInputState(XINPUT_BUTTON_RIGHT_SHOULDER) == eInputState::ePressed)
     {
         jump_direction = 1;
@@ -65,56 +63,63 @@ void Player::Update(float delta_second)
         jump_direction = -1;
     }
 
-    // 押している間チャージ
-    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::ePressed)
+    // ===== チャージ処理 =====
+    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eHeld && isGround)
     {
         charge_Time += delta_second;
 
-        if (charge_Time > charge_Time_max)
-        {
-            charge_Time = charge_Time_max;
-        }
+        if (charge_Time > MAX_CHARGE_TIME)
+            charge_Time = MAX_CHARGE_TIME;
     }
-    //離したら飛ぶ
+
+    // ===== 離したらジャンプ =====
     if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eReleased && isGround)
     {
-        g_velocity = 0.0f;
+        float powerRate = charge_Time / MAX_CHARGE_TIME;
 
-        float minJump = -800.0f;
-        float maxJump = -500.0f;
+        powerRate = powerRate * powerRate;
 
-        float powerRate = charge_Time / charge_Time_max;  // 0.0～1.0
+        //ジャンプ力の範囲
+        float minJump = 400.0f;   // 弱
+        float maxJump = 700.0f;  // 強
 
+        
         float jumpPower = minJump + (maxJump - minJump) * powerRate;
 
-        velocity.y = jumpPower;
-        velocity.x = 300.0f * jump_direction;
+        //上方向の速度
+        velocity.y = -jumpPower;
+
+        // 横もチャージ比例・横移動の範囲
+        float minMove = 200.0f;
+        float maxMove = 600.0f;
+
+        float movePower = minMove + (maxMove - minMove) * powerRate;
+
+        velocity.x = movePower * jump_direction;
 
         charge_Time = 0.0f;
     }
 
-    // 重力
-    velocity.y += D_GRAVITY * delta_second;
-
-    //// 空中なら横減速
-    //if (!isGround)
-    //{
-    //    velocity.x *= 0.90f;
-    //}
-
-    location += velocity * delta_second;
-    
-
-    if (location.y > 400.0f)
+    // ===== 重力（落下少し速く）=====
+    if (velocity.y > 0) // 落下中
     {
-        location.y = 400.0f;
-        velocity.y = 0.0f;
-        velocity.x = 0.0f;  // 着地して止める
-        g_velocity = 0.0f;
+        velocity.y += D_GRAVITY * 1.3f * delta_second;
+    }
+    else
+    {
+        velocity.y += D_GRAVITY * delta_second;
     }
 
+    // ===== 位置更新 =====
+    location += velocity * delta_second;
 
-
+    // ===== 地面判定 =====
+    if (location.y > GROUND_Y)
+    {
+        location.y = GROUND_Y;
+        velocity.y = 0.0f;
+        velocity.x = 0.0f;  // 着地でピタ止まり
+    }
 }
 void Player::Draw(const Vector2D& screen_ofset)const
 {
