@@ -24,7 +24,9 @@ void InGameScene::Initialize()
 	//LoadStageMapCSV();
 	image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Haikei2.png");
 	GetScreenState(&screenW, &screenH, nullptr);
-	gm->CreateGameObject<Player>(Vector2D(320.0f, 400.0f));
+	camera = Camera::Get();
+	camera->CameraInit();
+	player = gm->CreateGameObject<Player>(Vector2D(320.0f, 400.0f));
 
 }
 

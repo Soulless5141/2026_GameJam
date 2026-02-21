@@ -46,3 +46,8 @@ Vector2D Camera::GetCameraLocation()
 {
 	return camera_location;
 }
+
+void Camera::CameraInit()
+{
+	camera_location = 0;
+}
