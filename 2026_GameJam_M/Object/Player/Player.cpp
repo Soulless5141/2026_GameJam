@@ -10,7 +10,7 @@
 //重力
 
 #define GROUND_Y (400.0f)
-#define MAX_CHARGE_TIME (3.0f)
+#define MAX_CHARGE_TIME (2.0f)
 
 
 
@@ -90,8 +90,8 @@ void Player::Update(float delta_second)
         velocity.y = -jumpPower;
 
         // 横もチャージ比例・横移動の範囲
-        float minMove = 200.0f;
-        float maxMove = 600.0f;
+        float minMove = 50.0f;
+        float maxMove = 150.0f;
 
         float movePower = minMove + (maxMove - minMove) * powerRate;
 
@@ -101,14 +101,34 @@ void Player::Update(float delta_second)
     }
 
     // ===== 重力（落下少し速く）=====
-    if (velocity.y > 0) // 落下中
+    //追加
+    float gravityUp = D_GRAVITY * 0.7f;         //上昇中は軽く
+    float gravityDown = D_GRAVITY * 1.5f;       //落下は早く
+    if (velocity.y < 0) //上昇中
     {
-        velocity.y += D_GRAVITY * 1.3f * delta_second;
+        velocity.y += gravityUp * delta_second;
     }
-    else
+    else //落下中
     {
-        velocity.y += D_GRAVITY * delta_second;
+        velocity.y += gravityDown * delta_second;
     }
+
+    //落下速度にぢょうげんをつける　追加
+    float maxFallSpeed = 1000;
+    if (velocity.y > maxFallSpeed)
+    {
+        velocity.y = maxFallSpeed;
+    }
+
+    //元の落下処理
+    //if (velocity.y > 0) // 落下中
+    //{
+    //    velocity.y += D_GRAVITY * 1.3f * delta_second;
+    //}
+    //else
+    //{
+    //    velocity.y += D_GRAVITY * delta_second;
+    //}
 
     // ===== 位置更新 =====
     location += velocity * delta_second;
