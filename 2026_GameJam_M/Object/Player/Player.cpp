@@ -8,6 +8,7 @@
 #include <iostream>
 
 //重力
+#define D_GRAVITY (50.0f)
 #define jamp_Max_pawa -600.0f
 #define MAX_CHARGE_TIME 1.0f 
 
@@ -51,7 +52,7 @@ void Player::Update(float delta_second)
 
     bool isGround = (location.y >= 400.0f);
     PadInputManager* pad = PadInputManager::GetInstance();
-    image= LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_right.png");
+   
 
 
     if (pad->GetKeyInputState(XINPUT_BUTTON_RIGHT_SHOULDER) == eInputState::ePressed)
@@ -79,8 +80,8 @@ void Player::Update(float delta_second)
     {
         g_velocity = 0.0f;
 
-        float minJump = -400.0f;   // 最小ジャンプ力
-        float maxJump = -1000.0f;  // 最大ジャンプ力
+        float minJump = -100.0f;   // 最小ジャンプ力
+        float maxJump = -300.0f;  // 最大ジャンプ力
 
         float powerRate = charge_Time / charge_Time_max;  // 0.0～1.0
 
@@ -98,11 +99,12 @@ void Player::Update(float delta_second)
     // 空中なら横減速
     if (!isGround)
     {
-        velocity.x *= 0.98f;
+        velocity.x *= 0.90f;
     }
 
     location += velocity * delta_second;
     location += velocity * delta_second;
+    
 
     if (location.y > 400.0f)
     {
