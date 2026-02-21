@@ -1,6 +1,7 @@
 #include "InGameScene.h"
 #include "../../Input/InputManager.h"
 #include"../../../Utility/PadInputManager.h"
+
 #include <DxLib.h>
 
 #define START_TIME (3) // 何秒からスタートかの初期設定
@@ -17,10 +18,14 @@ InGameScene::~InGameScene()
 
 void InGameScene::Initialize()
 {
-	// 
+	// タイマーの初期設定
 	time = START_TIME;
 	// マップデータ読み込み生成処理
 	//LoadStageMapCSV();
+	image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Haikei2.png");
+	GetScreenState(&screenW, &screenH, nullptr);
+	gm->CreateGameObject<Player>(Vector2D(320.0f, 400.0f));
+
 }
 
 /// <summary>
@@ -29,11 +34,8 @@ void InGameScene::Initialize()
 /// <returns>戻り値は</returns>
 eSceneType InGameScene::Update(const float& delta_second)
 {
-	InputManager* input = InputManager::GetInstance();
-	if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
-	{
-		return eSceneType::eResult;
-	}
+	camera->CameraUpdate(player->GetLocation());		//プレイヤーの座標を基にカメラを更新
+
 	PadInputManager* pad = PadInputManager::GetInstance();
 	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
 	{
@@ -53,6 +55,11 @@ void InGameScene::Draw()
 {
 	DrawString(10, 10, "インゲーム画面", GetColor(255, 255, 255));
 	DrawString(10, 100, "時間制限", GetColor(255, 255, 255));
+	// 画像を画面いっぱいに引き伸ばして描画
+	DrawExtendGraph(0, 0, screenW, screenH, image, TRUE);
+
+	__super::Draw();
+
 	if (time >= 0)
 	{
 		DrawFormatString(10, 200, GetColor(255, 255, 255), "%d", time);
@@ -65,7 +72,7 @@ void InGameScene::Draw()
 
 void InGameScene::Finalize()
 {
-
+	
 }
 
 void InGameScene::CountDwon(float delta_second)
