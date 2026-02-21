@@ -4,9 +4,14 @@
 #include "../Utility/PadInputManager.h"
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 {
-	ChangeWindowMode(FALSE);
+	/*ChangeWindowMode(FALSE);
 	SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
-	SetGraphMode(1920, 1080, 32);
+	SetGraphMode(1920, 1080, 32);*/
+
+	ChangeWindowMode(TRUE); // TRUE → ウィンドウ起動
+	SetGraphMode(1280, 720, 32);
+
+
 	if (DxLib_Init() == -1)
 	{
 		return -1;
@@ -24,7 +29,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 		}
 
 		int now_time = GetNowCount();
-		float delta = (now_time - prev_time) / 1000.0f;
+		const float delta = (now_time - prev_time) / 1000.0f;
 		prev_time = now_time;
 
 		pad->Update();
