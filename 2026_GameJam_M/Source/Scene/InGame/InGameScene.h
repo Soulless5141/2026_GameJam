@@ -6,9 +6,8 @@ class InGameScene :public SceneBase
 
 {
 private:
-	
-	int charge;   // どれぐらい溜めたか
 	int time;
+	float time_count;
 
 
 public:
@@ -41,4 +40,6 @@ private:
 	/// オブジェクト削除
 	/// </summary>
 	void DeleteStage();*/
+
+	void CountDwon(float delta_second);
 };
