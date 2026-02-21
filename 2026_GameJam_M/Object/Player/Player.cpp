@@ -136,8 +136,15 @@ void Player::Draw(const Vector2D& screen_ofset)const
 
     /*__super::Draw(screen_ofset);*/
 }
+
 void Player::Finalize()
 {
+}
+
+Vector2D& Player::GetLocation()
+{
+    // TODO: return ステートメントをここに挿入します
+    return this->location;
 }
 
 

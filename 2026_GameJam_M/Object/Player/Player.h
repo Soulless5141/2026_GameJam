@@ -34,6 +34,8 @@ public:
 	virtual void Update(float delta_second) override;
 	void Finalize();
 
+	Vector2D& GetLocation();
+
 	/// <summary>
 	/// “–‚½‚è”»’è’Ê’mˆ—
 	/// </summary>
