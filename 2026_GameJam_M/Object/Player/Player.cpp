@@ -65,7 +65,7 @@ void Player::Update(float delta_second)
     }
 
     // 押している間チャージ
-    if (pad->GetKeyInputState(XINPUT_BUTTON_X) == eInputState::ePressed)
+    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::ePressed)
     {
         charge_Time += delta_second;
 
@@ -75,7 +75,7 @@ void Player::Update(float delta_second)
         }
     }
     //離したら飛ぶ
-    if (pad->GetKeyInputState(XINPUT_BUTTON_X) == eInputState::eReleased && isGround)
+    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eReleased && isGround)
     {
         g_velocity = 0.0f;
 
@@ -93,9 +93,15 @@ void Player::Update(float delta_second)
     }
 
     // 重力
-    g_velocity += D_GRAVITY * delta_second;
-    velocity.y += g_velocity * delta_second;
+    velocity.y += D_GRAVITY * delta_second;
 
+    // 空中なら横減速
+    if (!isGround)
+    {
+        velocity.x *= 0.98f;
+    }
+
+    location += velocity * delta_second;
     location += velocity * delta_second;
 
     if (location.y > 400.0f)
@@ -114,11 +120,19 @@ void Player::Draw(const Vector2D& screen_ofset)const
     int imageW, imageH;
     GetGraphSize(image, &imageW, &imageH);
 
-    int smallW = imageW / 9;
-    int smallH = imageH / 9;
+    int smallW = imageW / 20;
+    int smallH = imageH / 20;
 
+    DrawExtendGraph(
+        location.x - smallW / 2,
+        location.y - smallH / 2,
+        location.x + smallW / 2,
+        location.y + smallH / 2,
+        image,
+        TRUE
+    );
 
-    __super::Draw(screen_ofset);
+    /*__super::Draw(screen_ofset);*/
 }
 void Player::Finalize()
 {
