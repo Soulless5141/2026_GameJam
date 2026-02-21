@@ -28,8 +28,6 @@ public:
 	}
 	virtual ~SceneBase()
 	{
-		// ‰ð•ú–Y‚ê–hŽ~
-		Finalize();
 	}
 
 public:
