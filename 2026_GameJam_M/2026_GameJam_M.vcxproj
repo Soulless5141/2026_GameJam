@@ -139,6 +139,7 @@
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\Floor\Floor.cpp" />
     <ClCompile Include="Source\Scene\TestMap\TestScene.cpp" />
+    <ClCompile Include="Utility\RankingManager\RankingManager.cpp" />
     <ClCompile Include="Utility\ResourceManager.cpp" />
     <ClCompile Include="Utility\Collision.cpp" />
     <ClCompile Include="Utility\Camera.cpp" />
@@ -154,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Floor\Goal.h" />
+    <ClInclude Include="Object\Player\Date\PlayerData.h" />
     <ClInclude Include="Source\Scene\End\EndScene.h" />
     <ClInclude Include="Source\Scene\Help\HelpScene.h" />
     <ClInclude Include="Object\Floor\FloorBase.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\Floor\Floor.h" />
     <ClInclude Include="Source\Scene\TestMap\TestScene.h" />
+    <ClInclude Include="Utility\RankingManager\RankingManager.h" />
     <ClInclude Include="Utility\ResourceManager.h" />
     <ClInclude Include="Utility\Collision.h" />
     <ClInclude Include="Utility\Camera.h" />
