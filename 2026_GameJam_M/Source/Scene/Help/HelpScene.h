@@ -14,12 +14,12 @@ public:
 
 public:
 	virtual void Initialize()override;
-	virtual eSceneType Update()override;
-	virtual void Draw()const override;
+	virtual eSceneType Update(const float& delta_second) override;
+	virtual void Draw() override;
 	virtual void Finalize()override;
 
 public:
-	virtual eSceneType GetNowSceneType()const override
+	virtual const eSceneType GetNowSceneType()const override
 	{
 		return eSceneType::eHelp;
 	}

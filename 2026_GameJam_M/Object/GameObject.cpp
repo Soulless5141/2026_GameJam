@@ -24,6 +24,13 @@ void GameObject::Update(float delta_second)
 
 void GameObject::Draw(const Vector2D& screen_offset) const
 {
+
+	DrawGraph(
+		static_cast<int>(location.x - screen_offset.x),
+		static_cast<int>(location.y - screen_offset.y),
+		image,
+		TRUE
+	);
 	Camera* camera = Camera::Get();
 	// オフセット値を基に画像の描画を行う
 	Vector2D graph_location = camera->ConvertLcoationToScreen(this->location + screen_offset);

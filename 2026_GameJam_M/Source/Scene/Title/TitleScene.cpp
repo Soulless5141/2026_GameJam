@@ -21,7 +21,7 @@ void TitleScene::Initialize()
     Arrow_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut1.png");
 }
 
-eSceneType TitleScene::Update()
+eSceneType TitleScene::Update(const float& delta_second)
 {
     PadInputManager* pad_input = PadInputManager::GetInstance();
 
@@ -43,7 +43,7 @@ eSceneType TitleScene::Update()
     return GetNowSceneType();
 }
 
-void TitleScene::Draw() const
+void TitleScene::Draw() 
 {
 
 

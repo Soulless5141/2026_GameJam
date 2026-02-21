@@ -21,7 +21,7 @@ void ResultScene::Initialize()
 /// 更新処理
 /// </summary>
 /// <returns>戻り値は</returns>
-eSceneType ResultScene::Update()
+eSceneType ResultScene::Update(const float& delta_second)
 {
 	//InputManager* input = InputManager::GetInstance();
 	//if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
@@ -39,6 +39,10 @@ eSceneType ResultScene::Update()
 	{
 		return eSceneType::eInGame;
 	}
+	else if (pad->GetKeyInputState(XINPUT_BUTTON_X) == eInputState::ePressed)
+	{
+		return eSceneType::eTest;
+	}
 	
 	//else if (input->GetKeyState(KEY_INPUT_TAB) == eInputState::ePressed)
 	//{
@@ -50,7 +54,7 @@ eSceneType ResultScene::Update()
 }
 
 
-void ResultScene::Draw() const
+void ResultScene::Draw() 
 {
 	DrawString(10, 10, "リザルト画面", GetColor(255, 255, 255));
 	DrawString(10, 50, "TABKeyでインゲーム画面", GetColor(255, 255, 255));

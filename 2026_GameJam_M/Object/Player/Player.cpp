@@ -36,6 +36,9 @@ void Player::Initialize()
     //Dead_animetion = rm->GetImages("", 1, 1, 1, 32, 32)[0];         //死亡アニメーション
     //Goal_animetion = rm->GetImages("", 1, 1, 1, 32, 32)[0];            //ゴールアニメーション
 
+    image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_right.png");
+
+
 	//当たり判定の設定
 	collision.hit_object_type.push_back(eObjectType::eFloor);
 	collision.hit_object_type.push_back(eObjectType::eGoal);
@@ -65,6 +68,21 @@ void Player::Update(float delta_second)
         velocity.y = -600.0f;
     }
 
+    PadInputManager* pad = PadInputManager::GetInstance();
+
+    if (pad->GetKeyInputState(XINPUT_BUTTON_RIGHT_SHOULDER) == eInputState::ePressed)
+    {
+        g_velocity = 0.0f;
+        velocity.x = 200.0f;
+        velocity.y = -600.0f;
+    }
+
+    if (pad->GetKeyInputState(XINPUT_BUTTON_LEFT_SHOULDER) == eInputState::ePressed)
+    {
+        g_velocity = 0.0f;
+        velocity.x = -200.0;
+        velocity.y = -600.0f;
+    }
 
     // 重力
     g_velocity += D_GRAVITY * delta_second;

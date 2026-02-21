@@ -14,7 +14,7 @@ HelpScene::~HelpScene()
 void HelpScene::Initialize()
 {
 }
-eSceneType HelpScene::Update()
+eSceneType HelpScene::Update(const float& delta_second)
 {
 	InputManager* input = InputManager::GetInstance();
 	if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
@@ -30,7 +30,7 @@ eSceneType HelpScene::Update()
 
 	return GetNowSceneType();
 }
-void HelpScene::Draw() const
+void HelpScene::Draw() 
 {
 	DrawString(10, 10, "ƒwƒ‹ƒv‰æ–Ê", GetColor(255, 255, 255));
 }

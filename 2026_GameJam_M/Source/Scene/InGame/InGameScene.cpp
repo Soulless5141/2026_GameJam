@@ -23,7 +23,7 @@ void InGameScene::Initialize()
 /// 更新処理
 /// </summary>
 /// <returns>戻り値は</returns>
-eSceneType InGameScene::Update()
+eSceneType InGameScene::Update(const float& delta_second)
 {
 	InputManager* input = InputManager::GetInstance();
 	if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
@@ -39,7 +39,7 @@ eSceneType InGameScene::Update()
 }
 
 
-void InGameScene::Draw() const
+void InGameScene::Draw() 
 {
 	DrawString(10, 10, "インゲーム画面", GetColor(255, 255, 255));
 	DrawString(10, 100, "時間制限", GetColor(255, 255, 255));

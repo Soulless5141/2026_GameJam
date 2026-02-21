@@ -2,74 +2,83 @@
 #include "SceneFactory.h"
 
 SceneManager* SceneManager::instance = nullptr;
+
 SceneManager::SceneManager()
-	: current_scene(nullptr)
+    : current_scene(nullptr)
 {
 }
 
 SceneManager::~SceneManager()
 {
-	Finalize();
+    Finalize();
 }
 
 SceneManager* SceneManager::GetInstance()
 {
-	if (instance == nullptr)
-
-	{
-		instance = new SceneManager();
-	}
-	return instance;
+    if (instance == nullptr)
+    {
+        instance = new SceneManager();
+    }
+    return instance;
 }
 
 void SceneManager::DeleteInstance()
 {
-	if (instance)
-	{
-		delete instance;
-		instance = nullptr;
-	}
+    if (instance)
+    {
+        delete instance;
+        instance = nullptr;
+    }
 }
 
 void SceneManager::Initialize()
 {
-	ChangeScene(eSceneType::eTitle);
+    ChangeScene(eSceneType::eTitle);
 }
 
-void SceneManager::Update()
+void SceneManager::Update(float delta_second)   
 {
-	eSceneType next = current_scene->Update();
-	if (next != current_scene->GetNowSceneType())
-	{
-		ChangeScene(next);
-	}
+    if (!current_scene) return;
+
+    eSceneType next = current_scene->Update(delta_second);
+
+    if (next != current_scene->GetNowSceneType())
+    {
+        ChangeScene(next);
+    }
 }
 
 void SceneManager::Draw() const
 {
-	current_scene->Draw();
+    if (current_scene)
+    {
+        current_scene->Draw();
+    }
 }
 
 void SceneManager::Finalize()
 {
-	if (current_scene)
-	{
-		current_scene->Finalize();
-		delete current_scene;
-		current_scene = nullptr;
-	}
+    if (current_scene)
+    {
+        current_scene->Finalize();
+        delete current_scene;
+        current_scene = nullptr;
+    }
 }
 
-void SceneManager::ChangeScene(eSceneType next_scene_type
-)
-
+void SceneManager::ChangeScene(eSceneType next_scene_type)
 {
-	if (current_scene)
-	{
-		current_scene->Finalize();
-		delete current_scene;
-	}
+    if (current_scene)
+    {
+        current_scene->Finalize();
+        delete current_scene;
+        current_scene = nullptr;
+    }
 
-	current_scene = SceneFactory::CreateScene(next_scene_type);
-	current_scene->Initialize();
+    current_scene = SceneFactory::CreateScene(next_scene_type);
+
+    if (current_scene)
+    {
+        current_scene->Initialize();
+    }
 }

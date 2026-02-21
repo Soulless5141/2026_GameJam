@@ -4,6 +4,7 @@
 #include "InGame/InGameScene.h"
 #include "Result/ResultScene.h"
 #include "End/EndScene.h"
+#include "TestMap/TestScene.h"
 SceneBase* SceneFactory::CreateScene(eSceneType next_scene_type)
 
 {
@@ -38,6 +39,12 @@ SceneBase* SceneFactory::CreateScene(eSceneType next_scene_type)
 		return dynamic_cast
 
 			<SceneBase*>(new EndScene());
+
+	case eSceneType::eTest:
+		return dynamic_cast
+
+			<SceneBase*>(new TestScene());
+
 	default:
 		return nullptr;
 	}

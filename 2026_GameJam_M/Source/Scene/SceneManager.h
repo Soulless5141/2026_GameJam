@@ -1,39 +1,26 @@
 #pragma once
-
 #include "SceneBase.h"
 
-/// <summary>
-/// シーン管理クラス
-/// </summary>
 class SceneManager
 {
 private:
-	static SceneManager* instance;
-	SceneBase* current_scene;	//現在のシーン情報
+    static SceneManager* instance;
+    SceneBase* current_scene;
 
 private:
-	SceneManager();
-	~SceneManager();
+    SceneManager();
+    ~SceneManager();
 
 public:
-	static SceneManager* GetInstance();
-	static void DeleteInstance();
+    static SceneManager* GetInstance();
+    static void DeleteInstance();
 
 public:
-	//初期化
-	void Initialize();
-	//更新
-	void Update();
-	//描画
-	void Draw()const;
-	//後始末
-	void Finalize();
+    void Initialize();
+    void Update(float delta_second);   // ★ 引数追加
+    void Draw() const;
+    void Finalize();
 
 private:
-	//シーンの切り替え
-	void ChangeScene(eSceneType next_scene_type);
-
+    void ChangeScene(eSceneType next_scene_type);
 };
-
-
-

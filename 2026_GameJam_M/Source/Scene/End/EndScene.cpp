@@ -13,7 +13,7 @@ EndScene::~EndScene()
 void EndScene::Initialize()
 {
 }
-eSceneType EndScene::Update()
+eSceneType EndScene::Update(const float& delta_second)
 {
 	InputManager* input = InputManager::GetInstance();
 	if (input->GetKeyState(KEY_INPUT_SPACE) == eInputState::ePressed)
@@ -27,7 +27,7 @@ eSceneType EndScene::Update()
 	}
 	return GetNowSceneType();
 }
-void EndScene::Draw() const
+void EndScene::Draw() 
 {
 	DrawString(10, 10, "ƒGƒ“ƒh‰æ–Ê", GetColor(255, 255, 255));
 }

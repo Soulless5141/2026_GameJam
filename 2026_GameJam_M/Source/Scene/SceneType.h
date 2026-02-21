@@ -7,4 +7,5 @@ enum class eSceneType :unsigned char
 	eInGame,	//インゲーム
 	eResult,	//リザリト
 	eEnd,		//エンド
+	eTest,		//テスト
 };

@@ -15,18 +15,25 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 	SceneManager* scene_manager = SceneManager::GetInstance();
 	PadInputManager* pad = PadInputManager::GetInstance();
 	scene_manager->Initialize();
+	int prev_time = GetNowCount();
 	while (ProcessMessage() != -1)
 	{
 		if (CheckHitKey(KEY_INPUT_ESCAPE))
 		{
-			break;	//ƒ‹[ƒv‚ð”²‚¯‚é
+			break;
 		}
-		pad ->Update();
-		scene_manager->Update();
+
+		int now_time = GetNowCount();
+		float delta = (now_time - prev_time) / 1000.0f;
+		prev_time = now_time;
+
+		pad->Update();
+
+		scene_manager->Update(delta);   // š ‚±‚±‚ðC³
+
 		ClearDrawScreen();
 		scene_manager->Draw();
 		ScreenFlip();
-
 	}
 	scene_manager->Finalize();
 	SceneManager::DeleteInstance();

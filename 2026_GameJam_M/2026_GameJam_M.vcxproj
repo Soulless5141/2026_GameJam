@@ -138,6 +138,7 @@
     <ClCompile Include="Object\GameObjectManager.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\Floor\Floor.cpp" />
+    <ClCompile Include="Source\Scene\TestMap\TestScene.cpp" />
     <ClCompile Include="Utility\ResourceManager.cpp" />
     <ClCompile Include="Utility\Collision.cpp" />
     <ClCompile Include="Utility\Camera.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Object\GameObjectManager.h" />
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\Floor\Floor.h" />
+    <ClInclude Include="Source\Scene\TestMap\TestScene.h" />
     <ClInclude Include="Utility\ResourceManager.h" />
     <ClInclude Include="Utility\Collision.h" />
     <ClInclude Include="Utility\Camera.h" />
