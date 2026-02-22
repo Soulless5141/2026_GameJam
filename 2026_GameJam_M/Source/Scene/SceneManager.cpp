@@ -1,4 +1,7 @@
 #include "SceneManager.h"
+#include "../../Utility/RankingManager/RankingManager.h"
+#include "Ranking/RankingScene.h"
+#include "SceneBase.h"
 #include "SceneFactory.h"
 
 //シングルインスタンス
@@ -86,18 +89,32 @@ void SceneManager::Finalize()
 //シーン変更処理
 void SceneManager::ChangeScene(eSceneType next_scene_type)
 {
-    //既存のシーンがあれば削除
+    int carry_score = 0;
+
     if (current_scene)
     {
+        // ★今のシーンからスコア取得
+        carry_score = current_scene->GetScore();
+
         current_scene->Finalize();
         delete current_scene;
         current_scene = nullptr;
     }
 
-    //SceneFactoryを使って新しいシーンの生成
     current_scene = SceneFactory::CreateScene(next_scene_type);
 
-    //生成に成功したら初期化
+    // ★Rankingにスコアを渡す
+    if (next_scene_type == eSceneType::eRanking)
+    {
+        RankingScene* ranking =
+            dynamic_cast<RankingScene*>(current_scene);
+
+        if (ranking)
+        {
+            ranking->SetScore(carry_score);
+        }
+    }
+
     if (current_scene)
     {
         current_scene->Initialize();

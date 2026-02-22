@@ -115,6 +115,11 @@ public:
 	/// <returns>現在のシーンタイプ情報</returns>
 	virtual const eSceneType GetNowSceneType() const = 0;
 
+	virtual int GetScore() const
+	{
+		return 0;
+	}
+
 	/// <summary>
 	/// 当たり判定確認処理
 	/// </summary>

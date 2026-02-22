@@ -19,6 +19,9 @@ InGameScene::~InGameScene()
 
 void InGameScene::Initialize()
 {
+
+	score = 0;
+
 	// タイマーの初期設定
 	time = START_TIME;
 
@@ -53,9 +56,17 @@ eSceneType InGameScene::Update(const float& delta_second)
 	}
 
 	// 親クラスの更新処理を呼び出す
+	camera->CameraUpdate(player->GetLocation());
+
 	__super::Update(delta_second);
 
 	CountDwon(delta_second);
+
+	// ★時間切れ判定
+	if (time < 0)
+	{
+		return eSceneType::eRanking;
+	}
 
 	return GetNowSceneType();
 }

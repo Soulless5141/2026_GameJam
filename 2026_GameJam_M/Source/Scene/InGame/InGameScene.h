@@ -16,6 +16,7 @@ private:
 	int ground_stage;
 	int time;
 	float time_count;
+	int score;
 
 	std::vector<std::vector<int>>floor_set;
 	std::vector<std::vector<int>>block;
@@ -40,6 +41,11 @@ public:
 	virtual const eSceneType GetNowSceneType() const override
 	{
 		return eSceneType::eInGame;
+	}
+
+	virtual int GetScore() const
+	{
+		return 0;
 	}
 
 private:
