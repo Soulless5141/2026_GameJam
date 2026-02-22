@@ -5,14 +5,15 @@ class Floor : public FloorBase
 private:
 	bool landing_flg; // ’…’n‚µ‚½‚±‚Æ‚ª‚ ‚é‚©”Û‚©
 
-	Floor();
-	~Floor()
+public:
+
+	Floor() = default;
+	virtual ~Floor()
 	{
 
 	}
 
 	virtual void Initialize() override;
-	virtual void Update(float delta_second) override;
 	virtual void Draw(const Vector2D& screen_offset) const override;
 
 	void TimeCountUp();  // §ŒÀŠÔ‚ğ‘‚â‚·

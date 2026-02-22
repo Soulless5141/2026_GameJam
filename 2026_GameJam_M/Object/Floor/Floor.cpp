@@ -1,7 +1,5 @@
 #include "Floor.h"
 
-#include "FloorBase.h"
-
 
 void Floor::Initialize()
 {

@@ -4,14 +4,22 @@
 #include "../../../Utility/Camera.h"
 #include"../../../Object/Player/Player.h"
 
+#define FLOOR_MAX_X (3)     // 横に何個か
+#define FLOOR_MAX_Y (10)    // 縦に何個か
+
 class InGameScene :public SceneBase
 
 {
 private:
 	class Player* player;
 	Camera* camera;
+	int ground_stage;
 	int time;
 	float time_count;
+
+	std::vector<std::vector<int>>floor_set;
+	std::vector<std::vector<int>>block;
+	std::vector<std::vector<GameObject*>>object;
 
 	// 画面サイズを取得
 	int screenW, screenH;
@@ -35,18 +43,18 @@ public:
 	}
 
 private:
-	///// <summary>
-	///// ステージマップ読み込み処理
-	///// </summary>
-	//void LoadStageMapCSV();
+	/// <summary>
+	/// ステージマップ読み込み処理
+	/// </summary>
+	void LoadStageMapCSV();
 	///// <summary>
 	///// ステージ生成
-	///// </summary>
-	//void CreateStage();
+	/// </summary>
+	void CreateStage();
 	///// <summary>
-	///// オブジェクト削除
-	///// </summary>
-	//void DeleteStage();
+	/// オブジェクト削除
+	/// </summary>
+	void DeleteStage();
 
 	void CountDwon(float delta_second);
 };
