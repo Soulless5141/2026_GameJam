@@ -7,6 +7,7 @@
 class HelpScene :public SceneBase
 {
 private:
+	int Help_image;
 
 public:
 	HelpScene();

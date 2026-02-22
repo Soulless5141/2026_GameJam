@@ -13,6 +13,7 @@ HelpScene::~HelpScene()
 }
 void HelpScene::Initialize()
 {
+	Help_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Game_setumei.png");
 }
 eSceneType HelpScene::Update(const float& delta_second)
 {
@@ -32,6 +33,11 @@ eSceneType HelpScene::Update(const float& delta_second)
 }
 void HelpScene::Draw() 
 {
+	int screenWidth, screenHeight;
+	GetDrawScreenSize(&screenWidth, &screenHeight);
+
+	DrawExtendGraph(0, 0, screenWidth, screenHeight, Help_image, TRUE);
+
 	DrawString(10, 10, "ƒwƒ‹ƒv‰æ–Ê", GetColor(255, 255, 255));
 }
 void HelpScene::Finalize()

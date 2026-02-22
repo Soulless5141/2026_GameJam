@@ -17,8 +17,8 @@ void TitleScene::Initialize()
     cursor_number = 0;
     cursor_y = 0;
 
-    Title_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Haikei1.png");
-    Box_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleFrame.png");
+    Title_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Title.png");
+    //Box_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleFrame.png");
     Arrow_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut1.png");
     font_handle = CreateFontToHandle(NULL, 40, 3);
 }
@@ -52,61 +52,32 @@ void TitleScene::Draw()
 
     DrawExtendGraph(0, 0, screenWidth, screenHeight, Title_image, TRUE);
 
-    int boxW, boxH;
-    GetGraphSize(Box_image, &boxW, &boxH);
-
-    int boxX = screenWidth - boxW - 80;
-    int boxY = screenHeight / 2 - boxH / 2;
-
-    DrawGraph(boxX, boxY, Box_image, TRUE);
-
-    // 茶色
-    int brown = GetColor(139, 69, 19);
-
-    const char* menu[3] = { "START", "HELP", "END" };
-
-    int baseY = boxY + 200;
+    // ↓ メニュー位置を直接指定
+    int baseX = screenWidth / 2 - -100;  
+    int baseY = screenHeight / 2 - 30;
     int lineSpace = 90;
 
-    // ★ Arrowの基準位置
-    int arrowBaseX = boxX + 180;
-    int arrowStartY = baseY;
-
-    // 画像サイズ取得（1回だけ）
     int arrowW, arrowH;
     GetGraphSize(Arrow_image, &arrowW, &arrowH);
 
-    int smallW = arrowW / 9;
-    int smallH = arrowH / 9;
+    int smallW = arrowW / 10;
+    int smallH = arrowH / 10;
 
     for (int i = 0; i < 3; i++)
     {
-        int arrowY = arrowStartY + lineSpace * i;
+        int arrowY = baseY + lineSpace * i;
 
-        // ★ 選択中だけArrow表示
         if (i == cursor_number)
         {
             DrawExtendGraph(
-                arrowBaseX,
+                baseX,
                 arrowY,
-                arrowBaseX + smallW,
+                baseX + smallW,
                 arrowY + smallH,
                 Arrow_image,
                 TRUE
             );
         }
-
-        // ★ 文字は常にArrowの右側
-        int textX = arrowBaseX + smallW + 30;
-        int textY = arrowY + (smallH / 2) - 20;
-
-        DrawStringToHandle(
-            textX,
-            textY,
-            menu[i],
-            GetColor(139, 69, 19),
-            font_handle
-        );
     }
 }
 
