@@ -35,6 +35,11 @@ eSceneType RankingScene::Update(const float& delta_second)
 
     PadInputManager* pad = PadInputManager::GetInstance();
 
+    if (pad->GetKeyInputState(XINPUT_BUTTON_Y) == eInputState::ePressed)
+    {
+        return eSceneType::eTitle;
+    }
+
     // ===== 名前入力中 =====
     if (isInputMode)
     {
@@ -74,12 +79,14 @@ void RankingScene::Draw()
     // 背景描画
     DrawGraph(0, 0, background_handle, TRUE);
 
-    DrawString(100, 40, "ランキング登録", GetColor(255, 255, 255));
+    DrawString(50, 20, "ランキング登録", GetColor(0, 0, 0));
+	DrawString(50, 40, "Yボタンでタイトルへ", GetColor(0, 0, 0));
+	DrawString(50, 70, "名前を登録したらBボタンでタイトルへ", GetColor(0, 0, 0));
 
     //入力画面
     if (isInputMode)
     {
-        DrawString(100, 90, "名前を入力してください (Enterで確定)", GetColor(255, 255, 255));
+        DrawString(50, 90, "名前をキーボードで入力してください (Enterで確定)", GetColor(0, 0, 0));
 
         // 入力枠（黒背景）
         DrawBox(95, 120, 405, 165, GetColor(0, 0, 0), TRUE);
