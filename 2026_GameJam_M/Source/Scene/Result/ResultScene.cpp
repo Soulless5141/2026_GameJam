@@ -15,8 +15,10 @@ void ResultScene::Initialize()
 {
     final_score = 1500; 
 
+	background_handle = LoadGraph("Resource/Image/2026_Gamejam_sozai/Haikei1.png");
     bgm_handle = LoadSoundMem("Resource/Image/BGM SE/ランキングリザルト画面BGM.mp3");   
-    decide_se = LoadSoundMem("Resource/Image/BGM SE/決定SE.mp3");                    
+    decide_se = LoadSoundMem("Resource/Image/BGM SE/決定SE.mp3");  
+    font_handle = CreateFontToHandle("ＭＳ ゴシック", 48, 3);
     PlaySoundMem(bgm_handle, DX_PLAYTYPE_LOOP);                               
 
 }
@@ -54,7 +56,24 @@ eSceneType ResultScene::Update(const float& delta_second)
 
 void ResultScene::Draw()
 {
+	int screenWidth, screenHeight;
+	GetDrawScreenSize(&screenWidth, &screenHeight);
+	DrawExtendGraph(0, 0, screenWidth, screenHeight, background_handle, TRUE);
     DrawString(10, 10, "リザルト画面", GetColor(255, 255, 255));
+
+    // ★中央座標計算
+    int centerX = screenWidth / 2;
+    int centerY = screenHeight / 2;
+
+    // ★中央揃えでスコア表示（シアン）
+    DrawFormatStringToHandle(
+        centerX,
+        centerY,
+        GetColor(0, 255, 255),   // シアン
+        font_handle,
+        "SCORE : %d",
+        final_score
+    );
 
     DrawFormatString(10, 50,
         GetColor(255, 255, 0),
@@ -69,5 +88,7 @@ void ResultScene::Finalize()
 {
     StopSoundMem(bgm_handle);      
     DeleteSoundMem(bgm_handle);    
-    DeleteSoundMem(decide_se);     
+    DeleteSoundMem(decide_se);    
+
+	DeleteGraph(background_handle);
 }

@@ -14,6 +14,8 @@ HelpScene::~HelpScene()
 void HelpScene::Initialize()
 {
 	Help_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Game_setumei.png");
+	HelpeBGM_handle = LoadSoundMem("Resource/Image/BGM SE/ランキングリザルト画面BGM.mp3");
+	PlaySoundMem(HelpeBGM_handle, DX_PLAYTYPE_LOOP);
 }
 eSceneType HelpScene::Update(const float& delta_second)
 {
@@ -42,4 +44,8 @@ void HelpScene::Draw()
 }
 void HelpScene::Finalize()
 {
+
+	StopSoundMem(HelpeBGM_handle);
+	DeleteGraph(Help_image);
+	DeleteSoundMem(HelpeBGM_handle);
 }

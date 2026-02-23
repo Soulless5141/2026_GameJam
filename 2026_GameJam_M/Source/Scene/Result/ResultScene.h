@@ -6,9 +6,10 @@ class ResultScene : public SceneBase
 {
 private:
 	int final_score;    // 最終スコア
-
+	int background_handle; // 背景画像のハンドル
     int bgm_handle;     
-    int decide_se;      
+    int decide_se;   
+	int font_handle;   // フォントのハンドル
 
 
 public:

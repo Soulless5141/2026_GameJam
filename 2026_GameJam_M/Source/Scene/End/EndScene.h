@@ -7,6 +7,8 @@
 class EndScene :public SceneBase
 {
 private:
+	int End_image;
+	int EndBGM_handle;
 
 public:
 	EndScene();
