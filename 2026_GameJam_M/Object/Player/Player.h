@@ -16,6 +16,10 @@ public:
 	int jump_direction = 0;		//ジャンプ方向
 	float charge_Time = 0.0f;
 	bool isCharging = false;
+	float minJump = 400.0f;//ジャンプ最小
+	float maxJump = 700.0f;//ジャンプ最大
+	float minMove = 50.0f;
+	float maxMove = 150.0f;
 
 	//リスポーン 追加
 	Vector2D respawnPosition;
