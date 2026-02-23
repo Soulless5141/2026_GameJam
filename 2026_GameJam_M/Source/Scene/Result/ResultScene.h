@@ -7,6 +7,9 @@ class ResultScene : public SceneBase
 private:
 	int final_score;    // 最終スコア
 
+    int bgm_handle;     
+    int decide_se;      
+
 
 public:
     ResultScene();

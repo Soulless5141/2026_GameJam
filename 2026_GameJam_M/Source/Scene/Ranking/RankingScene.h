@@ -16,6 +16,9 @@ private:
     bool isInputMode;
     bool isRegistered;
 
+    int bgm_handle;     
+    int decide_se;      
+
 public:
     RankingScene();
     ~RankingScene();

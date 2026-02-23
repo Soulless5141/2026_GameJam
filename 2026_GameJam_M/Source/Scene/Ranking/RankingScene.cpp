@@ -27,7 +27,13 @@ void RankingScene::Initialize()
     isRegistered = false;
 
     player_name[0] = '\0';
+
+    bgm_handle = LoadSoundMem("Resource/Image/BGM SE/ランキングリザルト画面BGM.mp3");   
+    decide_se = LoadSoundMem("Resource/Image/BGM SE/決定SE.mp3");                    
+    PlaySoundMem(bgm_handle, DX_PLAYTYPE_LOOP);                               
 }
+
+
 
 eSceneType RankingScene::Update(const float& delta_second)
 {
@@ -37,6 +43,7 @@ eSceneType RankingScene::Update(const float& delta_second)
 
     if (pad->GetKeyInputState(XINPUT_BUTTON_Y) == eInputState::ePressed)
     {
+        PlaySoundMem(decide_se, DX_PLAYTYPE_BACK);   
         return eSceneType::eTitle;
     }
 
@@ -68,6 +75,7 @@ eSceneType RankingScene::Update(const float& delta_second)
     // ===== Bボタンでタイトルへ =====
     if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
     {
+        PlaySoundMem(decide_se, DX_PLAYTYPE_BACK);   
         return eSceneType::eTitle;
     }
 
@@ -143,5 +151,9 @@ void RankingScene::Draw()
 
 void RankingScene::Finalize()
 {
+    StopSoundMem(bgm_handle);      
+    DeleteSoundMem(bgm_handle);    
+    DeleteSoundMem(decide_se);     
+
     DeleteKeyInput(input_handle);
 }
