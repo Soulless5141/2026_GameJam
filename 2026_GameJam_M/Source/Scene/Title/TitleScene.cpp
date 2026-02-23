@@ -21,6 +21,11 @@ void TitleScene::Initialize()
     //Box_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleFrame.png");
     Arrow_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut1.png");
     font_handle = CreateFontToHandle(NULL, 40, 3);
+
+    cursor_se = LoadSoundMem("Resource/Image/BGM SE/カーソル移動SE.mp3");   
+    decide_se = LoadSoundMem("Resource/Image/BGM SE/決定SE.mp3");          
+    bgm_handle = LoadSoundMem("Resource/Image/BGM SE/タイトルBGM.mp3");    
+    PlaySoundMem(bgm_handle, DX_PLAYTYPE_LOOP);
 }
 
 eSceneType TitleScene::Update(const float& delta_second)
@@ -29,6 +34,8 @@ eSceneType TitleScene::Update(const float& delta_second)
 
     if (pad_input->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
     {
+        PlaySoundMem(decide_se, DX_PLAYTYPE_BACK);   
+
         switch (cursor_number)
         {
         case 0:
@@ -83,9 +90,15 @@ void TitleScene::Draw()
 
 void TitleScene::Finalize()
 {
+    StopSoundMem(bgm_handle);
+
     DeleteGraph(Title_image);
     DeleteGraph(Box_image);
     DeleteGraph(Arrow_image);
+
+    DeleteSoundMem(cursor_se);       
+    DeleteSoundMem(decide_se);       
+    DeleteSoundMem(bgm_handle);
 }
 
 void TitleScene::SelectCursor()
@@ -99,11 +112,13 @@ void TitleScene::SelectCursor()
         {
             cursor_number = 2;
         }
+        PlaySoundMem(cursor_se, DX_PLAYTYPE_BACK);
     }
 
     if (pad_input->GetKeyInputState(XINPUT_BUTTON_DPAD_DOWN) == eInputState::ePressed)
     {
         cursor_number++;
         cursor_number %= 3;
+        PlaySoundMem(cursor_se, DX_PLAYTYPE_BACK);   
     }
 }

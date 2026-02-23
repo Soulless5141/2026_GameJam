@@ -12,9 +12,10 @@ private:
 	int Box_image;
 	int Arrow_image;
 	int cursor_y;
-	int BGM;
-	int SE1;
-	int SE2;
+	int cursor_se;    
+	int decide_se;    
+	int bgm_handle;  
+
 
 	bool is_result;
 
