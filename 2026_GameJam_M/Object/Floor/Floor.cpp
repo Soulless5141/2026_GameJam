@@ -5,7 +5,7 @@ void Floor::Initialize()
 {
 	// アニメーション画像の読み込み
 	ResourceManager* rm = ResourceManager::Get();
-	image = rm->GetImages("Resource/Image/2026_Gamejam_sozai/Chara_right.png", 10, 5, 2, 128, 128)[0];
+	image = rm->GetImages("Resource/Image/2026_Gamejam_sozai/Ekurea.png", 10, 5, 2, 128, 128)[0];
 
 	// 当たり判定の設定
 
@@ -31,6 +31,12 @@ void Floor::OnHitCollision(GameObject* hit_object)
 		}
 	}
 }
+
+void Floor::Update(float delta)
+{
+	// 床の更新処理を書く
+}
+
 
 void Floor::TimeCountUp()
 {

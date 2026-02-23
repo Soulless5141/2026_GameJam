@@ -5,7 +5,9 @@ class Goal : public FloorBase
 private:
 	bool goal_flg; // ÉSÅ[ÉãÇµÇΩÇ©î€Ç©
 
-	Goal();
+public:
+
+	Goal() = default;
 	~Goal()
 	{
 

@@ -15,6 +15,7 @@ public:
 
 	virtual void Initialize() override;
 	virtual void Draw(const Vector2D& screen_offset) const override;
+	virtual void Update(float delta) override;
 
 	void TimeCountUp();  // §ŒÀŠÔ‚ğ‘‚â‚·
 

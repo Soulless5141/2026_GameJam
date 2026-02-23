@@ -2,10 +2,11 @@
 #include "../../Input/InputManager.h"
 #include"../../../Utility/PadInputManager.h"
 #include "../../../Object/Floor/Floor.h"
+#include "../../../Object/Floor/Goal.h"
 
 #include <DxLib.h>
 
-#define START_TIME (3) // 何秒からスタートかの初期設定
+#define START_TIME (10) // 何秒からスタートかの初期設定
 
 InGameScene::InGameScene() : time(0),time_count(0),ground_stage(NULL)
 {
@@ -38,6 +39,8 @@ void InGameScene::Initialize()
 	camera = Camera::Get();
 	camera->CameraInit();
 	player = gm->CreateGameObject<Player>(Vector2D(320.0f, 400.0f));
+
+	LoadStageMapCSV();
 
 }
 
@@ -108,7 +111,7 @@ void InGameScene::Finalize()
 void InGameScene::LoadStageMapCSV()
 {
 	FILE* fp = NULL;
-	std::string file_name = "csv";
+	std::string file_name = "Resource/Date_csv/Map2026.csv";
 
 	ResourceManager* rm = ResourceManager::Get();
 
@@ -142,12 +145,12 @@ void InGameScene::LoadStageMapCSV()
 			switch (c)
 			{
 				// 床
-			case 'f':
-				ground_stage = 'f';
+			case 'E':
+				ground_stage = 'E';
 				break;
 				// 階段ブロック
-			case 'B':
-				ground_stage = 'B';
+			case 'G':
+				ground_stage = 'G';
 				break;
 				// ブロック
 			default:
@@ -189,8 +192,11 @@ void InGameScene::CreateStage()
 				switch (block[x][y])
 				{
 					// 床
-				case 'f':
+				case 'E':
 					object[x][y] = gm->CreateGameObject<Floor>(genelate_location);
+					break;
+				case 'G':
+					object[x][y] = gm->CreateGameObject<Goal>(genelate_location);
 					break;
 				default:
 					break;
@@ -205,7 +211,7 @@ void InGameScene::CreateStage()
 
 void InGameScene::DeleteStage()
 {
-	for (int x = 0; x < object.size(); x++)
+	/*for (int x = 0; x < object.size(); x++)
 	{
 		for (int y = 0; y < object[x].size(); y++)
 		{
@@ -215,7 +221,7 @@ void InGameScene::DeleteStage()
 				object[x][y] = nullptr;
 			}
 		}
-	}
+	}*/
 }
 
 void InGameScene::CountDwon(float delta_second)
