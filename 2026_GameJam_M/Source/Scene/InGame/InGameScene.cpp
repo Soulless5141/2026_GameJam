@@ -69,6 +69,15 @@ eSceneType InGameScene::Update(const float& delta_second)
 	}
 
 	return GetNowSceneType();
+
+	//リスポーン処理　追加
+	/*player->Update(delta_second);
+	
+	if (player->IsRespawnRequested())
+	{
+	    player->Respawn();
+	}*/
+	//return GetNowSceneType();
 }
 
 

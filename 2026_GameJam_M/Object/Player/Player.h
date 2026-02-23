@@ -8,13 +8,6 @@
 class Player : public GameObject
 {
 public:
-	//アニメーション
-	std::vector<int> jump_animation;		//ジャンプアニメーション
-	std::vector<int> Left_save_animetion;		//チャージアニメーション
-	std::vector<int> Right_save_animetion;		//チャージアニメーション
-	std::vector<int> Dead_animetion;		//死亡アニメーション
-	std::vector<int> Goal_animetion;		//ゴールアニメーション
-
 	Vector2D velocity;		//移動量
 	Vector2D box_size;		//矩形
 	float g_velocity;		//重力速度
@@ -23,6 +16,19 @@ public:
 	int jump_direction = 0;		//ジャンプ方向
 	float charge_Time = 0.0f;
 	bool isCharging = false;
+
+	//リスポーン 追加
+	Vector2D respawnPosition;
+	bool requestRespawn = false;
+
+private:
+	/*bool isGround = false;*/
+	//画像
+	int left_image;
+	int right_image;
+	int left_jump_image;
+	int right_jump_image;
+
 public:
 	Player();
 	~Player();
@@ -32,13 +38,17 @@ public:
 	virtual void Update(float delta_second) override;
 	void Finalize();
 
+
 	Vector2D& GetLocation();
 
 	/// <summary>
 	/// 当たり判定通知処理
 	/// </summary>
 	/// <param name="hit_object">当たったゲームオブジェクトのポインタ</param>
-	/*virtual void OnHitCollision(GameObject* hit_object) override;*/
+	//virtual void OnHitCollision(GameObject* hit_object) override;
 
+	////リスポーン関数　追加
+	//void Respawn();
+	//void RequestRespawn();
 };
 

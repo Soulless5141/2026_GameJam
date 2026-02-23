@@ -36,69 +36,101 @@ void Player::Initialize()
     //Dead_animetion = rm->GetImages("", 1, 1, 1, 32, 32)[0];         //死亡アニメーション
     //Goal_animetion = rm->GetImages("", 1, 1, 1, 32, 32)[0];            //ゴールアニメーション
 
+    //画像　追加
     image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_right.png");
+    left_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_left_stop.png");
+    right_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_right_stop.png");
+    left_jump_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_left.png");
+    right_jump_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_sizi.png");
+    
 
 
 	//当たり判定の設定
+    collision.box_size.x = 32.0f;
+    collision.box_size.y = 64.0f;
+    collision.object_type = eObjectType::ePlayer;
+    //ここまで追加
 	collision.hit_object_type.push_back(eObjectType::eFloor);
 	collision.hit_object_type.push_back(eObjectType::eGoal);
 
 	location = Vector2D(320.0f, 400.0f);
 	velocity = 0.0f;
+
+    //リスポーン初期位置保存　追加
+    respawnPosition = location;
 }
 
 void Player::Update(float delta_second)
 {
-    bool isGround = (location.y >= GROUND_Y - 0.1f);
+    //元のisGround
+    bool isGround = (location.y >= GROUND_Y );
+    //新　IsGround　追加
+    /*isGround = false;*/
     PadInputManager* pad = PadInputManager::GetInstance();
 
     // ===== 方向決定 =====
     if (pad->GetKeyInputState(XINPUT_BUTTON_RIGHT_SHOULDER) == eInputState::ePressed)
     {
         jump_direction = 1;
+
     }
 
     if (pad->GetKeyInputState(XINPUT_BUTTON_LEFT_SHOULDER) == eInputState::ePressed)
     {
         jump_direction = -1;
+        
     }
 
     // ===== チャージ処理 =====
-    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eHeld && isGround)
+
+    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eReleased
+        && isGround
+        && jump_direction != 0) //追加
     {
-        charge_Time += delta_second;
+        if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eHeld && isGround)
+        {
+            charge_Time += delta_second;
 
-        if (charge_Time > MAX_CHARGE_TIME)
-            charge_Time = MAX_CHARGE_TIME;
+            if (charge_Time > MAX_CHARGE_TIME)
+                charge_Time = MAX_CHARGE_TIME;
+        }
+       
     }
-
+   
     // ===== 離したらジャンプ =====
-    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eReleased && isGround)
+    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eReleased
+        && isGround
+        && jump_direction != 0) //追加
     {
-        float powerRate = charge_Time / MAX_CHARGE_TIME;
+        if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eReleased && isGround)
+        {
+            float powerRate = charge_Time / MAX_CHARGE_TIME;
 
-        powerRate = powerRate * powerRate;
+            powerRate = powerRate * powerRate;
 
-        //ジャンプ力の範囲
-        float minJump = 400.0f;   // 弱
-        float maxJump = 700.0f;  // 強
+            //ジャンプ力の範囲
+            float minJump = 400.0f;   // 弱
+            float maxJump = 700.0f;  // 強
 
-        
-        float jumpPower = minJump + (maxJump - minJump) * powerRate;
 
-        //上方向の速度
-        velocity.y = -jumpPower;
+            float jumpPower = minJump + (maxJump - minJump) * powerRate;
 
-        // 横もチャージ比例・横移動の範囲
-        float minMove = 50.0f;
-        float maxMove = 150.0f;
+            //上方向の速度
+            velocity.y = -jumpPower;
 
-        float movePower = minMove + (maxMove - minMove) * powerRate;
+            // 横もチャージ比例・横移動の範囲
+            float minMove = 50.0f;
+            float maxMove = 150.0f;
 
-        velocity.x = movePower * jump_direction;
+            float movePower = minMove + (maxMove - minMove) * powerRate;
 
-        charge_Time = 0.0f;
+            velocity.x = movePower * jump_direction;
+
+            charge_Time = 0.0f;
+        }
     }
+    
+   
 
     // ===== 重力（落下少し速く）=====
     //追加
@@ -133,13 +165,34 @@ void Player::Update(float delta_second)
     // ===== 位置更新 =====
     location += velocity * delta_second;
 
+    //  画像切り替え 　追加
+if (location.y < GROUND_Y) // 空中
+{
+    if (jump_direction == 1)
+        image = right_jump_image;
+    else if (jump_direction == -1)
+        image = left_jump_image;
+}
+else // 地面
+{
+    if (jump_direction == 1)
+        image = right_image;
+    else if (jump_direction == -1)
+        image = left_image;
+}
+
+
     // ===== 地面判定 =====
     if (location.y > GROUND_Y)
     {
         location.y = GROUND_Y;
         velocity.y = 0.0f;
         velocity.x = 0.0f;  // 着地でピタ止まり
+        jump_direction == 0;
+        
     }
+
+    collision.pivot = location;
 }
 void Player::Draw(const Vector2D& screen_ofset)const
 {
@@ -172,4 +225,45 @@ Vector2D& Player::GetLocation()
     return this->location;
 }
 
+//当たり判定処理　追加
+//void Player::OnHitCollision(GameObject* hit_object)
+//{
+//    if (hit_object->GetCollision().object_type == eObjectType::eFloor)
+//    {
+//        if (velocity.y > 0)//落下中だけ
+//        {
+//            isGround = true;
+//            velocity.y = 0;
+//            velocity.x = 0;
+//
+//            float floorTop = hit_object->GetCollision().pivot.y - hit_object->GetCollision().box_size.y / 2;
+//
+//            location.y = floorTop - collision.box_size.y / 2;
+//        }
+//    }
+//}
+//
+////リスポーン　追加
+//void Player::Respawn()
+//{
+//    location = respawnPosition;
+//    velocity = Vector2D(0, 0);
+//    requestRespawn = false;
+//}
+//
+////フラグだけ耐えtる処理　追加
+//void Player::RequestRespawn()
+//{
+//    requestRespawn = true;
+//}
 
+
+
+
+
+//InGameのリスポーン処理で書くこと
+//衝突チェック
+//if (IsCheckCollision(player->GetCollision(), floor->GetCollision()))
+//{
+//    player->OnHitCollision(floor);
+//}
