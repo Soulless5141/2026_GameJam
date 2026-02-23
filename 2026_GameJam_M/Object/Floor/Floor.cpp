@@ -1,16 +1,14 @@
 #include "Floor.h"
-
+#include "DxLib.h"
 
 void Floor::Initialize()
 {
 	// アニメーション画像の読み込み
 	ResourceManager* rm = ResourceManager::Get();
-	image = rm->GetImages("Resource/Image/2026_Gamejam_sozai/Ekurea.png", 10, 5, 2, 128, 128)[0];
-
-	// 当たり判定の設定
+	image = rm->GetImages("Resource/Image/2026_Gamejam_sozai/Ekurea2.png", 1, 1, 1, 300, 136)[0];
 
 	collision.box_size.x = 32.0f;
-	collision.box_size.x = 8.0f;
+	collision.box_size.y = 8.0f;
 	collision.object_type = eObjectType::eFloor;
 }
 

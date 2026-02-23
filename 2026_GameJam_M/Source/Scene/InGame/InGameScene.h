@@ -4,8 +4,8 @@
 #include "../../../Utility/Camera.h"
 #include"../../../Object/Player/Player.h"
 
-#define FLOOR_MAX_X (4)     // ‰¡‚É‰½ŒÂ‚©
-#define FLOOR_MAX_Y (10)    // c‚É‰½ŒÂ‚©
+#define FLOOR_MAX_X (40)     // ‰¡‚É‰½ŒÂ‚©
+#define FLOOR_MAX_Y (100)    // c‚É‰½ŒÂ‚©
 
 class InGameScene :public SceneBase
 

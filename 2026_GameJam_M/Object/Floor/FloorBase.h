@@ -14,6 +14,7 @@ public:
 public:
 	virtual void Initialize() override;
 	virtual void Update(float) override;
+	virtual void Draw(const Vector2D& screen_offset) const override;
 	virtual void OnHitCollision(GameObject*) override;
 
 };

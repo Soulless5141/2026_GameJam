@@ -6,7 +6,7 @@
 
 #include <DxLib.h>
 
-#define START_TIME (10) // 何秒からスタートかの初期設定
+#define START_TIME (100) // 何秒からスタートかの初期設定
 
 InGameScene::InGameScene() : time(0),time_count(0),ground_stage(NULL)
 {
@@ -41,6 +41,7 @@ void InGameScene::Initialize()
 	player = gm->CreateGameObject<Player>(Vector2D(320.0f, 400.0f));
 
 	LoadStageMapCSV();
+	CreateStage();
 
 }
 
@@ -50,7 +51,6 @@ void InGameScene::Initialize()
 /// <returns>戻り値は</returns>
 eSceneType InGameScene::Update(const float& delta_second)
 {
-	camera->CameraUpdate(player->GetLocation());		//プレイヤーの座標を基にカメラを更新
 
 	PadInputManager* pad = PadInputManager::GetInstance();
 	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
@@ -61,9 +61,13 @@ eSceneType InGameScene::Update(const float& delta_second)
 	// 親クラスの更新処理を呼び出す
 	camera->CameraUpdate(player->GetLocation());
 
+	CountDwon(delta_second);
+
+	
+	// 親クラスの更新処理を呼び出す
 	__super::Update(delta_second);
 
-	CountDwon(delta_second);
+	//DeleteStage();
 
 	// ★時間切れ判定
 	if (time < 0)
@@ -89,7 +93,7 @@ void InGameScene::Draw()
 	DrawString(10, 10, "インゲーム画面", GetColor(255, 255, 255));
 	DrawString(10, 100, "時間制限", GetColor(255, 255, 255));
 	// 画像を画面いっぱいに引き伸ばして描画
-	DrawExtendGraph(0, 0, screenW, screenH, image, TRUE);
+	//DrawExtendGraph(0, 0, screenW, screenH, image, TRUE);
 
 	__super::Draw();
 
@@ -105,7 +109,8 @@ void InGameScene::Draw()
 
 void InGameScene::Finalize()
 {
-	
+	// 親クラスの終了時処理を呼び出す
+	__super::Finalize();
 }
 
 void InGameScene::LoadStageMapCSV()
@@ -162,7 +167,7 @@ void InGameScene::LoadStageMapCSV()
 		}
 
 		// 抽出した文字が空白文字なら、生成しないで次の文字を見に行く
-		else if (c == ' ')
+		else if (c == ',')
 		{
 			ground_stage = NULL;
 			x++;
@@ -182,13 +187,16 @@ void InGameScene::LoadStageMapCSV()
 void InGameScene::CreateStage()
 {
 	GameObjectManager* gm = GameObjectManager::Get();
+	//printfDx("CreateStage called\n");
+
 	for (int x = 0; x < block.size(); x++)
 	{
 		for (int y = 0; y < block[x].size(); y++)
 		{
 			if (block[x][y] != NULL && ((float)x * OBJECT_SIZE) < (camera->GetCameraLocation().x + (D_WIN_MAX_X / 1.9)))
 			{
-				Vector2D genelate_location = Vector2D((float)x * OBJECT_SIZE, (float)y * OBJECT_SIZE);
+				Vector2D genelate_location = Vector2D(((float)x * 400)+250, ((float)y * -200)+800);
+
 				switch (block[x][y])
 				{
 					// 床
