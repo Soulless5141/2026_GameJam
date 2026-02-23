@@ -48,6 +48,13 @@ public:
 		return 0;
 	}
 
+	/// <summary>
+	/// 当たり判定確認処理
+	/// </summary>
+	/// <param name="target">1つ目のゲームオブジェクト</param>
+	/// <param name="partner">2つ目のゲームオブジェクト</param>
+	virtual void CheckCollision(GameObject* target, GameObject* partner) override;
+
 private:
 	/// <summary>
 	/// ステージマップ読み込み処理

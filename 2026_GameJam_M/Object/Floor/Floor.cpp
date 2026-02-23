@@ -7,8 +7,9 @@ void Floor::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	image = rm->GetImages("Resource/Image/2026_Gamejam_sozai/Ekurea2.png", 1, 1, 1, 300, 136)[0];
 
-	collision.box_size.x = 32.0f;
-	collision.box_size.y = 8.0f;
+	collision.box_size.x = 300.0f;
+	collision.box_size.y = 136.0f;
+	collision.is_blocking = true;
 	collision.object_type = eObjectType::eFloor;
 }
 

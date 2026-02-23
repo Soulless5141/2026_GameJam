@@ -243,5 +243,44 @@ void InGameScene::CountDwon(float delta_second)
 			time--;
 		}
 	}
+}
 
+/// <summary>
+/// 当たり判定確認処理
+/// </summary>
+/// <param name="target">1つ目のゲームオブジェクト</param>
+/// <param name="partner">2つ目のゲームオブジェクト</param>
+void InGameScene::CheckCollision(GameObject* target, GameObject* partner)
+{
+	// ヌルポチェック
+	if (target == nullptr || partner == nullptr)
+	{
+		return;
+	}
+
+	// 当たり判定情報を取得
+	Collision tc = target->GetCollision();
+	Collision pc = partner->GetCollision();
+
+	// 当たり判定が有効か確認する
+	if (tc.IsCheckHitTarget(pc.object_type) || pc.IsCheckHitTarget(tc.object_type))
+	{
+		// カプセル同士の当たり判定
+		tc.pivot = target->GetLocation();
+		pc.pivot = partner->GetLocation();
+		Vector2D distance = target->GetLocation() - partner->GetLocation();
+		Vector2D col_size = (tc.box_size + pc.box_size) / 2;
+		if (fabsf(distance.x) <= col_size.x && fabsf(distance.y) <= col_size.y)
+		{
+			partner->OnHitCollision(target);
+			target->OnHitCollision(partner);
+		}
+		//if (IsCheckCollision(tc, pc))
+		//{
+		//	// 当たっていることを通知する
+		//	partner->OnHitCollision(target);
+		//	target->OnHitCollision(partner);
+
+		//}
+	}
 }

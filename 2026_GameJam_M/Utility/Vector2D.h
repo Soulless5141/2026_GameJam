@@ -46,6 +46,12 @@ public:
 		return Vector2D(-x, -y);
 	}
 
+	Vector2D operator/(float s) const
+	{
+		return Vector2D(x / s, y / s);
+	}
+
+
 public:
 	void ToInt(int* x, int* y)
 	{
