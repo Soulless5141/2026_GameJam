@@ -69,7 +69,7 @@ eSceneType InGameScene::Update(const float& delta_second)
 		return eSceneType::eResult;
 	}
 
-	if(goal&&goal->IsGoal() || is_goal == true)
+	if(goal&&goal->IsGoal() || player->isGoal == true)
 	{
 		return eSceneType::eEnd;
 	}

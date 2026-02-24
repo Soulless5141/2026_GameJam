@@ -17,7 +17,8 @@
 Player::Player() :
     velocity(0.0f),
     box_size(0.0f),
-    g_velocity(0.0f)
+    g_velocity(0.0f),
+    isGoal(false)
 {
 
 }
@@ -54,7 +55,7 @@ void Player::Initialize()
     collision.hit_object_type.push_back(eObjectType::eFloor);
     collision.hit_object_type.push_back(eObjectType::eGoal);
 
-    location = Vector2D(500.0f, 400.0f);
+    location = Vector2D(600.0f, 400.0f);
     velocity = 0.0f;
 
     //リスポーン初期位置保存　追加
@@ -214,7 +215,10 @@ Vector2D& Player::GetLocation()
 
 void Player::OnHitCollision(GameObject* hit_object)
 {
-
+    if (hit_object->GetCollision().object_type == eObjectType::eGoal)
+    {
+        isGoal = true;
+    }
 
     if (hit_object->GetCollision().object_type != eObjectType::eFloor)
         return;
@@ -232,6 +236,8 @@ void Player::OnHitCollision(GameObject* hit_object)
     // Player の location は「中心」なので、
     // 中心Y = 床の上端 - 自分の高さの半分
     location.y = floorTop - collision.box_size.y * 0.8f;
+
+
 }
 //
 ////リスポーン　追加

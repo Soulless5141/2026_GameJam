@@ -23,6 +23,7 @@ public:
 	//Œ³‚ÌisGround
 	bool isGround;
 	bool isJamp;
+	bool isGoal;
 
 	//ƒŠƒXƒ|[ƒ“ ’Ç‰Á
 	Vector2D respawnPosition;
