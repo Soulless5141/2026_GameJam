@@ -88,7 +88,7 @@ eSceneType InGameScene::Update(const float& delta_second)
 	// ★時間切れ判定
 	if (time < 0)
 	{
-		return eSceneType::eRanking;
+		return eSceneType::eGameOver;
 	}
 
 	return GetNowSceneType();
@@ -125,6 +125,19 @@ void InGameScene::Draw()
 
 void InGameScene::Finalize()
 {
+
+	if (player)
+	{
+		gm->DestroyGameObject(player);
+		player = nullptr;
+	}
+
+	if (goal)
+	{
+		delete goal;
+		goal = nullptr;
+	}
+
 	// 親クラスの終了時処理を呼び出す
 	__super::Finalize();
 }
@@ -217,7 +230,7 @@ void InGameScene::CreateStage()
 		{
 			if (block[x][y] != NULL && ((float)x * OBJECT_SIZE) < (camera->GetCameraLocation().x + (D_WIN_MAX_X / 1.9)))
 			{
-				Vector2D genelate_location = Vector2D(((float)x * 90)+150, ((float)y * -130)+650);
+				Vector2D genelate_location = Vector2D(((float)x * 90)+170, ((float)y * -130)+850);
 
 				switch (block[x][y])
 				{

@@ -6,6 +6,7 @@
 #include "End/EndScene.h"
 #include "TestMap/TestScene.h"
 #include "Ranking/RankingScene.h"
+#include "GameOver/GameOverScene.h"
 SceneBase* SceneFactory::CreateScene(eSceneType next_scene_type)
 
 {
@@ -45,6 +46,11 @@ SceneBase* SceneFactory::CreateScene(eSceneType next_scene_type)
 		return dynamic_cast
 
 			<SceneBase*>(new RankingScene());
+
+	case eSceneType::eGameOver:
+		return dynamic_cast
+
+			<SceneBase*>(new GameOverScene());
 
 	default:
 		return nullptr;
