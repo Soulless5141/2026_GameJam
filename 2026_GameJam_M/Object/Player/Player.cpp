@@ -47,7 +47,7 @@ void Player::Initialize()
     isGround = true;
 
     //当たり判定の設定
-    collision.box_size.x = 10.0f;
+    collision.box_size.x = 40.0f;
     collision.box_size.y = 64.0f;
     collision.object_type = eObjectType::ePlayer;
     collision.is_blocking = true;
@@ -67,9 +67,9 @@ void Player::Update(float delta_second)
     PadInputManager* pad = PadInputManager::GetInstance();
 
     // ===== 方向決定（左右キーで更新） =====
-    if (pad->GetKeyInputState(XINPUT_BUTTON_RIGHT_SHOULDER) == eInputState::ePressed)
+    if (pad->GetKeyInputState(XINPUT_BUTTON_RIGHT_SHOULDER) == eInputState::eHeld)
         jump_direction = 1;
-    else if (pad->GetKeyInputState(XINPUT_BUTTON_LEFT_SHOULDER) == eInputState::ePressed)
+    else if (pad->GetKeyInputState(XINPUT_BUTTON_LEFT_SHOULDER) == eInputState::eHeld)
         jump_direction = -1;
 
     // ===== チャージ処理 =====
@@ -178,11 +178,12 @@ void Player::OnHitCollision(GameObject* hit_object)
         return;
 
     // 落下中だけ着地判定
-    if (velocity.y < 0)
+    if (velocity.y <= 0)
         return;
     isGround = true;
     velocity.y = 0;
     velocity.x = 0;
+    jump_direction = 0;
 
     // Floor の location を「左上」とみなす場合
     float floorTop = hit_object->GetLocation().y;
