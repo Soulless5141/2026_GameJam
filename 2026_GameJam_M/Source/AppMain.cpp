@@ -4,8 +4,8 @@
 #include "../Utility/PadInputManager.h"
 int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int)
 {
-	/*ChangeWindowMode(FALSE);
-	SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
+	ChangeWindowMode(FALSE);
+	/*SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_DESKTOP);
 	SetGraphMode(1920, 1080, 32);*/
 
 	ChangeWindowMode(TRUE); // TRUE → ウィンドウ起動

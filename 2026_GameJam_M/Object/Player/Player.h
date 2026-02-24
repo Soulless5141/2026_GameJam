@@ -22,6 +22,7 @@ public:
 	float maxMove = 150.0f;
 	//Œ³‚ÌisGround
 	bool isGround;
+	bool isJamp;
 
 	//ƒŠƒXƒ|[ƒ“ ’Ç‰Á
 	Vector2D respawnPosition;

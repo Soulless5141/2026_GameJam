@@ -9,7 +9,7 @@
 
 //重力
 
-#define GROUND_Y (400.0f)
+#define GROUND_Y (700.0f)
 #define MAX_CHARGE_TIME (2.0f)
 
 
@@ -96,13 +96,13 @@ void Player::Update(float delta_second)
         && jump_direction != 0)   // 方向が決まっている場合のみジャンプ
     {
         float powerRate = charge_Time / MAX_CHARGE_TIME;
-        powerRate = powerRate * powerRate;
+        powerRate = powerRate * powerRate / 1.2;
 
         float jumpPower = minJump + (maxJump - minJump) * powerRate;
-        velocity.y = -jumpPower;
+        velocity.y = -jumpPower /1.2;
 
         float movePower = minMove + (maxMove - minMove) * powerRate;
-        velocity.x = movePower * jump_direction;
+        velocity.x = movePower * jump_direction /1.2;
 
         charge_Time = 0.0f;
     }
@@ -173,12 +173,12 @@ void Player::Update(float delta_second)
 
 
 
-   /* Camera* camera = Camera::Get();
+    Camera* camera = Camera::Get();
     if (location.x < camera->GetCameraLocation().x - (D_WIN_MAX_Y / 2.1))
     {
         location.x = camera->GetCameraLocation().x - (D_WIN_MAX_Y / 2.1);
         velocity.x = 0;
-    }*/
+    }
 }
 void Player::Draw(const Vector2D& screen_ofset)const
 {
@@ -186,8 +186,8 @@ void Player::Draw(const Vector2D& screen_ofset)const
     int imageW, imageH;
     GetGraphSize(image, &imageW, &imageH);
 
-    int smallW = imageW / 20;
-    int smallH = imageH / 20;
+    int smallW = imageW / 40;
+    int smallH = imageH / 40;
 
     DrawExtendGraph(
         location.x - smallW / 2,
@@ -230,7 +230,7 @@ void Player::OnHitCollision(GameObject* hit_object)
 
     // Player の location は「中心」なので、
     // 中心Y = 床の上端 - 自分の高さの半分
-    location.y = floorTop - collision.box_size.y * 1.3f;
+    location.y = floorTop - collision.box_size.y * 0.8f;
 }
 //
 ////リスポーン　追加
