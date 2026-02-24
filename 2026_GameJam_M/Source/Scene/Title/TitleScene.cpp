@@ -17,7 +17,7 @@ void TitleScene::Initialize()
     cursor_number = 0;
     cursor_y = 0;
 
-    Title_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Title.png");
+    Title_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Title_Help.png");
     //Box_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleFrame.png");
     Arrow_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut1.png");
     font_handle = CreateFontToHandle(NULL, 40, 3);
@@ -39,9 +39,9 @@ eSceneType TitleScene::Update(const float& delta_second)
         switch (cursor_number)
         {
         case 0:
-            return eSceneType::eHelp;
+            return eSceneType::eInGame;
         case 1:
-            return eSceneType::eResult;
+            return eSceneType::eHelp;
         case 2:
             return eSceneType::eEnd;
         }
@@ -60,15 +60,15 @@ void TitleScene::Draw()
     DrawExtendGraph(0, 0, screenWidth, screenHeight, Title_image, TRUE);
 
     // ↓ メニュー位置を直接指定
-    int baseX = screenWidth / 2 - -100;  
-    int baseY = screenHeight / 2 - 30;
+    int baseX = screenWidth / 2 - -140;  
+    int baseY = screenHeight / 2 - -10;
     int lineSpace = 90;
 
     int arrowW, arrowH;
     GetGraphSize(Arrow_image, &arrowW, &arrowH);
 
-    int smallW = arrowW / 10;
-    int smallH = arrowH / 10;
+    int smallW = arrowW / 7;
+    int smallH = arrowH / 7;
 
     for (int i = 0; i < 3; i++)
     {

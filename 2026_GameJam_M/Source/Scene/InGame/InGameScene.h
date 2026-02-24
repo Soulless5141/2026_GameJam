@@ -28,7 +28,7 @@ private:
 	int screenW, screenH;
 
 	Goal* goal;
-
+	
 
 public:
 

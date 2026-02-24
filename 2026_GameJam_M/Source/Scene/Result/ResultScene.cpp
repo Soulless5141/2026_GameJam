@@ -57,32 +57,45 @@ eSceneType ResultScene::Update(const float& delta_second)
 
 void ResultScene::Draw()
 {
-	int screenWidth, screenHeight;
-	GetDrawScreenSize(&screenWidth, &screenHeight);
-	DrawExtendGraph(0, 0, screenWidth, screenHeight, background_handle, TRUE);
-    DrawString(10, 10, "リザルト画面", GetColor(255, 255, 255));
+    int screenWidth, screenHeight;
+    GetDrawScreenSize(&screenWidth, &screenHeight);
 
-    //中央座標計算
+    // 背景
+    DrawExtendGraph(0, 0, screenWidth, screenHeight, background_handle, TRUE);
+
     int centerX = screenWidth / 2;
     int centerY = screenHeight / 2;
 
-    //スコア表示（シアン）
-    DrawFormatStringToHandle(
-        centerX,
-        centerY,
-        GetColor(0, 255, 255),   // シアン
-        font_handle,
-        "SCORE : %d",
-        final_score
+    // ★ フレームサイズ取得
+    int frameWidth, frameHeight;
+    GetGraphSize(Frame, &frameWidth, &frameHeight);
+
+    int frameX = centerX - frameWidth / 2;
+    int frameY = centerY - frameHeight / 2;
+
+    // ★ 先にフレーム描画（順番修正）
+    DrawGraph(frameX, frameY, Frame, TRUE);
+
+    // ★ 表示文字を作成
+    char scoreText[64];
+    sprintf_s(scoreText, "SCORE : %d", final_score);
+
+    // ★ 文字サイズ取得
+    int textWidth = GetDrawStringWidthToHandle(scoreText, strlen(scoreText), font_handle);
+    int textHeight = GetFontSizeToHandle(font_handle);
+
+    // ★ フレーム中央基準で補正
+    int drawX = frameX + frameWidth / 2 - textWidth / 2;
+    int drawY = frameY + frameHeight / 2 - textHeight / 2;
+
+    // ★ 中央描画
+    DrawStringToHandle(
+        drawX,
+        drawY,
+        scoreText,
+        GetColor(0, 255, 255),
+        font_handle
     );
-
-	int frameWidth, frameHeight;
-	GetGraphSize(Frame, &frameWidth, &frameHeight);
-
-	int frameX = centerX - frameWidth / 2;
-	int frameY = centerY - frameHeight / 2;
-
-	DrawGraph(frameX, frameY, Frame, TRUE);
 
     DrawFormatString(10, 50,
         GetColor(255, 255, 0),
@@ -92,7 +105,6 @@ void ResultScene::Draw()
         "Xボタンでランキング登録画面へ",
         GetColor(0, 255, 255));
 }
-
 void ResultScene::Finalize()
 {
     StopSoundMem(bgm_handle);      

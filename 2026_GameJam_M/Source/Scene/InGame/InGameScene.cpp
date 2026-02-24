@@ -66,7 +66,7 @@ eSceneType InGameScene::Update(const float& delta_second)
 	PadInputManager* pad = PadInputManager::GetInstance();
 	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
 	{
-		return eSceneType::eResult;
+		return eSceneType::eEnd;
 	}
 
 	if(goal&&goal->IsGoal() || player->isGoal == true)
@@ -130,6 +130,18 @@ void InGameScene::Finalize()
 	{
 		gm->DestroyGameObject(player);
 		player = nullptr;
+	}
+
+	for (int x = 0; x < object.size(); x++)
+	{
+		for (int y = 0; y < object[x].size(); y++)
+		{
+			if (object[x][y] != nullptr)
+			{
+				gm->DestroyGameObject(object[x][y]);
+				object[x][y] = nullptr;
+			}
+		}
 	}
 
 	if (goal)

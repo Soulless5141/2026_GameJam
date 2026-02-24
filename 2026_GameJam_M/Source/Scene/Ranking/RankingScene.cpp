@@ -84,8 +84,12 @@ eSceneType RankingScene::Update(const float& delta_second)
 
 void RankingScene::Draw()
 {
+
+    int screenW, screenH;
+    GetDrawScreenSize(&screenW, &screenH);
+
     // 背景描画
-    DrawGraph(0, 0, background_handle, TRUE);
+    DrawExtendGraph(0, 0, screenW, screenH, background_handle, TRUE);
 
     DrawString(50, 20, "ランキング登録", GetColor(0, 0, 0));
 	DrawString(50, 40, "Yボタンでタイトルへ", GetColor(0, 0, 0));
@@ -109,12 +113,20 @@ void RankingScene::Draw()
     int frame_w, frame_h;
     GetGraphSize(frame_handle, &frame_w, &frame_h);
 
-    int frame_x = (1280 - frame_w) / 2;
-    int frame_y = (720 - frame_h) / 2;
+    int frame_x = (screenW - frame_w) / 2;
+    int frame_y = (screenH - frame_h) / 2;
 
     DrawGraph(frame_x, frame_y, frame_handle, TRUE);
 
-    // ★ フレーム内だけ描画させる
+    // ★ フレーム内だけ描画
+    SetDrawArea(
+        frame_x,
+        frame_y,
+        frame_x + frame_w,
+        frame_y + frame_h
+		);
+
+    // フレーム内だけ描画させる
     SetDrawArea(
         frame_x,
         frame_y,
@@ -153,7 +165,11 @@ void RankingScene::Finalize()
 {
     StopSoundMem(bgm_handle);      
     DeleteSoundMem(bgm_handle);    
-    DeleteSoundMem(decide_se);     
+    DeleteSoundMem(decide_se); 
+
+
+    DeleteGraph(background_handle);  
+    DeleteGraph(frame_handle);
 
     DeleteKeyInput(input_handle);
 }
