@@ -3,37 +3,25 @@
 
 void Camera::CameraUpdate(Vector2D location)
 {
-		// プレイヤーの中心がカメラより右に来たら、カメラを右へ追従させる
-		if (location.y + OBJECT_SIZE / 2 < camera_location.y)
-		{
-			camera_location = location + OBJECT_SIZE / 2;
-		}
+    // ① 横方向は完全固定
+    camera_location.x = D_WIN_MAX_X / 2.0f;
 
-		// カメラの左端がステージ外（0より左）に出ないように制限する
-		if (camera_location.y - (D_WIN_MAX_Y / 2.0f) <= 0.0f)
-		{
-			// 左端に固定
-			camera_location.y = (D_WIN_MAX_Y / 2.0f);
-		}
-		// カメラの右端がステージ外に出ないように制限する
-		else if (camera_location.x + (D_WIN_MAX_X / 2.0f) >= STAGE_SIZE_X)
-		{
-			// 右端に固定
-			camera_location.x = D_WIN_MAX_X / 2.0f;
-		}
+    // ② 上方向だけ追従
+    if (location.y < camera_location.y)
+    {
+        camera_location.y = location.y;
+    }
 
-		// カメラの上端がステージ外に出ないように制限する
-		if (camera_location.y - (D_WIN_MAX_Y / 2.0f) <= 0.0f)
-		{
-			// 上端に固定
-			camera_location.y = (D_WIN_MAX_Y / 2.0f);
-		}
-		// カメラの下端がステージ外に出ないように制限する
-		else if (camera_location.y + (D_WIN_MAX_Y / 2.0f) >= STAGE_SIZE_Y)
-		{
-			// 下端に固定
-			camera_location.y = STAGE_SIZE_Y - (D_WIN_MAX_Y / 2.0f);
-		}
+    // ③ 上端制限
+    if (camera_location.y - (D_WIN_MAX_Y / 2.0f) <= 0.0f)
+    {
+        camera_location.y = (D_WIN_MAX_Y / 2.0f);
+    }
+    // ④ 下端制限
+    else if (camera_location.y + (D_WIN_MAX_Y / 2.0f) >= STAGE_SIZE_Y)
+    {
+        camera_location.y = STAGE_SIZE_Y - (D_WIN_MAX_Y / 2.0f);
+    }
 
 }
 

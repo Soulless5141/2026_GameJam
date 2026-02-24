@@ -9,7 +9,7 @@
 
 //èdóÕ
 
-#define GROUND_Y (700.0f)
+#define GROUND_Y (650.0f)
 #define MAX_CHARGE_TIME (2.0f)
 
 
@@ -96,13 +96,13 @@ void Player::Update(float delta_second)
         && jump_direction != 0)   // ï˚å¸Ç™åàÇ‹Ç¡ÇƒÇ¢ÇÈèÍçáÇÃÇ›ÉWÉÉÉìÉv
     {
         float powerRate = charge_Time / MAX_CHARGE_TIME;
-        powerRate = powerRate * powerRate / 1.2;
+        powerRate = powerRate * powerRate / 1.25;
 
         float jumpPower = minJump + (maxJump - minJump) * powerRate;
-        velocity.y = -jumpPower /1.2;
+        velocity.y = -jumpPower /1.25;
 
         float movePower = minMove + (maxMove - minMove) * powerRate;
-        velocity.x = movePower * jump_direction /1.2;
+        velocity.x = movePower * jump_direction /1.25;
 
         charge_Time = 0.0f;
     }
@@ -173,12 +173,12 @@ void Player::Update(float delta_second)
 
 
 
-    Camera* camera = Camera::Get();
+    /*Camera* camera = Camera::Get();
     if (location.x < camera->GetCameraLocation().x - (D_WIN_MAX_Y / 2.1))
     {
         location.x = camera->GetCameraLocation().x - (D_WIN_MAX_Y / 2.1);
         velocity.x = 0;
-    }
+    }*/
 }
 void Player::Draw(const Vector2D& screen_ofset)const
 {
@@ -203,6 +203,7 @@ void Player::Draw(const Vector2D& screen_ofset)const
 
 void Player::Finalize()
 {
+    
 }
 
 Vector2D& Player::GetLocation()
