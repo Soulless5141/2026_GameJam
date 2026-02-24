@@ -47,7 +47,6 @@ void Player::Initialize()
     collision.hit_object_type.push_back(eObjectType::eFloor);
     collision.hit_object_type.push_back(eObjectType::eGoal);
 
-    location = Vector2D(600.0f, 400.0f);
     velocity = 0.0f;
 }
 

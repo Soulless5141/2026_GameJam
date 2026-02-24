@@ -38,7 +38,7 @@ void InGameScene::Initialize()
 	GetScreenState(&screenW, &screenH, nullptr);
 	camera = Camera::Get();
 	camera->CameraInit();
-	player = gm->CreateGameObject<Player>(Vector2D(900.0f, 900.0f));
+	player = gm->CreateGameObject<Player>(Vector2D(870.0f, 550.0f));
 
 	goal = new Goal();
 	goal->Initialize();
