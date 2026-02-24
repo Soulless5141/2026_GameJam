@@ -17,8 +17,6 @@ public:
 	virtual void Draw(const Vector2D& screen_offset) const override;
 	virtual void Update(float delta) override;
 
-	void TimeCountUp();  // §ŒÀŠÔ‚ğ‘‚â‚·
-
 	/// <summary>
 	/// “–‚½‚è”»’è’Ê’mˆ—
 	/// </summary>

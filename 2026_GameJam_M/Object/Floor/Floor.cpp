@@ -7,7 +7,7 @@ void Floor::Initialize()
 	ResourceManager* rm = ResourceManager::Get();
 	image = rm->GetImages("Resource/Image/2026_Gamejam_sozai/Ekurea2.png", 1, 1, 1, 300, 136)[0];
 
-	collision.box_size.x = 100.0f;
+	collision.box_size.x = 120.0f;
 	collision.box_size.y = 50.0f;
 	collision.is_blocking = true;
 	collision.object_type = eObjectType::eFloor;
@@ -27,23 +27,18 @@ void Floor::OnHitCollision(GameObject* hit_object)
 		if (landing_flg == false)
 		{
 			landing_flg = true;
-			TimeCountUp();
 		}
 	}
 }
 
 void Floor::Update(float delta)
 {
-	// 床の更新処理を書く
-	collision.pivot = location + Vector2D(
-		collision.box_size.x * 0.5f,
-		collision.box_size.y * 0.5f
-	);
+	//// 床の更新処理を書く
+	//collision.pivot = location + Vector2D(
+	//	collision.box_size.x * 0.5f,
+	//	collision.box_size.y * 0.5f
+	//);
 
 }
 
 
-void Floor::TimeCountUp()
-{
-
-}
