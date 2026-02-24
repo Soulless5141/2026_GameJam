@@ -64,10 +64,6 @@ eSceneType InGameScene::Update(const float& delta_second)
 {
 
 	PadInputManager* pad = PadInputManager::GetInstance();
-	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
-	{
-		return eSceneType::eEnd;
-	}
 
 	if(goal&&goal->IsGoal() || player->isGoal == true)
 	{
