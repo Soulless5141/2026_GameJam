@@ -56,8 +56,5 @@ public:
 	/// <param name="hit_object">当たったゲームオブジェクトのポインタ</param>
 	virtual void OnHitCollision(GameObject* hit_object) override;
 
-	////リスポーン関数　追加
-	//void Respawn();
-	//void RequestRespawn();
 };
 
