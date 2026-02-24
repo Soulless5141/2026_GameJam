@@ -36,6 +36,7 @@ private:
 	int right_image;
 	int left_jump_image;
 	int right_jump_image;
+	int landing_image;
 
 public:
 	Player();

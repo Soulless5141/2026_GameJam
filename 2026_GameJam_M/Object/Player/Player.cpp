@@ -9,7 +9,7 @@
 
 //重力
 
-#define GROUND_Y (650.0f)
+//#define GROUND_Y (650.0f)
 #define MAX_CHARGE_TIME (2.0f)
 
 
@@ -38,7 +38,7 @@ void Player::Initialize()
     //Goal_animetion = rm->GetImages("", 1, 1, 1, 32, 32)[0];            //ゴールアニメーション
 
     //画像　追加
-    image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_right.png");
+    landing_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_right.png");
     left_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_left_stop.png");
     right_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_right_stop.png");
     left_jump_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_left.png");
@@ -64,21 +64,15 @@ void Player::Initialize()
 
 void Player::Update(float delta_second)
 {
-    //新　IsGround　追加
-    /*isGround = false;*/
     PadInputManager* pad = PadInputManager::GetInstance();
 
-    // ===== 方向決定 =====
+    // ===== 方向決定（左右キーで更新） =====
     if (pad->GetKeyInputState(XINPUT_BUTTON_RIGHT_SHOULDER) == eInputState::ePressed)
-    {
         jump_direction = 1;
-    }
-    if (pad->GetKeyInputState(XINPUT_BUTTON_LEFT_SHOULDER) == eInputState::ePressed)
-    {
+    else if (pad->GetKeyInputState(XINPUT_BUTTON_LEFT_SHOULDER) == eInputState::ePressed)
         jump_direction = -1;
-    }
 
-    // チャージ処理
+    // ===== チャージ処理 =====
     if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eHeld
         && isGround
         && jump_direction != 0)   // 方向が決まっている場合のみ溜める
@@ -88,101 +82,60 @@ void Player::Update(float delta_second)
             charge_Time = MAX_CHARGE_TIME;
     }
 
-    // 離したらジャンプ
-    // 離したらジャンプ
+    // ===== ジャンプ処理 =====
     if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eReleased
         && isGround
         && jump_direction != 0)   // 方向が決まっている場合のみジャンプ
     {
         float powerRate = charge_Time / MAX_CHARGE_TIME;
-        powerRate = powerRate * powerRate / 1.25;
+        powerRate = powerRate * powerRate / 1.25f;
 
         float jumpPower = minJump + (maxJump - minJump) * powerRate;
-        velocity.y = -jumpPower / 1.25;
+        velocity.y = -jumpPower / 1.25f;
 
         float movePower = minMove + (maxMove - minMove) * powerRate;
-        velocity.x = movePower * jump_direction / 1.25;
+        velocity.x = movePower * jump_direction / 1.25f;
 
         charge_Time = 0.0f;
 
-        // ← ここで空中状態にする
-        isGround = false;
+        isGround = false; // 空中状態に
     }
 
+    // ===== 重力 =====
+    float gravityUp = D_GRAVITY * 0.7f;
+    float gravityDown = D_GRAVITY * 1.5f;
+    velocity.y += (velocity.y < 0 ? gravityUp : gravityDown) * delta_second;
 
-
-    // ===== 重力（落下少し速く）=====
-    //追加
-    float gravityUp = D_GRAVITY * 0.7f;         //上昇中は軽く
-    float gravityDown = D_GRAVITY * 1.5f;       //落下は早く
-    if (velocity.y < 0) //上昇中
-    {
-        velocity.y += gravityUp * delta_second;
-    }
-    else //落下中
-    {
-        velocity.y += gravityDown * delta_second;
-    }
-
-    //落下速度にぢょうげんをつける　追加
-    float maxFallSpeed = 1000;
+    // 落下速度上限
+    float maxFallSpeed = 1000.0f;
     if (velocity.y > maxFallSpeed)
-    {
         velocity.y = maxFallSpeed;
-    }
-
-    //元の落下処理
-    //if (velocity.y > 0) // 落下中
-    //{
-    //    velocity.y += D_GRAVITY * 1.3f * delta_second;
-    //}
-    //else
-    //{
-    //    velocity.y += D_GRAVITY * delta_second;
-    //}
 
     // ===== 位置更新 =====
     location += velocity * delta_second;
 
-    //  画像切り替え 　追加
-    if (location.y < GROUND_Y) // 空中
+    // ===== 衝突判定は OnHitCollision に任せる =====
+    collision.pivot = location;
+
+    // ===== 画像切り替え =====
+    if (!isGround) // 空中
     {
         if (jump_direction == 1)
             image = right_jump_image;
         else if (jump_direction == -1)
             image = left_jump_image;
     }
-    else // 地面
+    else // 着地
     {
-        if (jump_direction == 1)
+        if (jump_direction == 1)          // 右向き停止
             image = right_image;
-        else if (jump_direction == -1)
+        else if (jump_direction == -1)    // 左向き停止
             image = left_image;
+        else                              // jump_direction が 0 の場合
+            image = landing_image;       // デフォルト右向き
     }
-
-
-    // ===== 地面判定 =====
-    if (location.y > GROUND_Y)
-    {
-        location.y = GROUND_Y;
-        velocity.y = 0.0f;
-        velocity.x = 0.0f;  // 着地でピタ止まり
-        isGround = true;    // 着地したので再びジャンプ可能
-
-      
-    }
-
-    collision.pivot = location;
-
-
-
-    /*Camera* camera = Camera::Get();
-    if (location.x < camera->GetCameraLocation().x - (D_WIN_MAX_Y / 2.1))
-    {
-        location.x = camera->GetCameraLocation().x - (D_WIN_MAX_Y / 2.1);
-        velocity.x = 0;
-    }*/
 }
+
 void Player::Draw(const Vector2D& screen_ofset)const
 {
     //image(縮小表示)
