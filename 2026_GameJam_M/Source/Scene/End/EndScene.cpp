@@ -31,7 +31,6 @@ void EndScene::Draw()
 	GetDrawScreenSize(&screenWidth, &screenHeight);
 
 	DrawExtendGraph(0, 0, screenWidth, screenHeight, End_image, TRUE);
-	DrawString(10, 10, "ƒGƒ“ƒh‰æ–Ê", GetColor(255, 255, 255));
 }
 void EndScene::Finalize()
 {

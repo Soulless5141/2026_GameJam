@@ -18,6 +18,7 @@ private:
 	int time;
 	float time_count;
 	int score;
+	int back_BGM;
 	bool is_goal;
 
 	std::vector<std::vector<int>>floor_set;

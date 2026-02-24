@@ -31,7 +31,6 @@ void GameOverScene::Draw()
 	GetDrawScreenSize(&screenWidth, &screenHeight);
 
 	DrawExtendGraph(0, 0, screenWidth, screenHeight, End_image, TRUE);
-	DrawString(10, 10, "Ž¸”s‰æ–Ê", GetColor(255, 255, 255));
 }
 void GameOverScene::Finalize()
 {
