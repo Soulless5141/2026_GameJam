@@ -33,7 +33,7 @@ eSceneType HelpScene::Update(const float& delta_second)
 
 	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
 	{
-		return eSceneType::eInGame;
+		return eSceneType::eTitle;
 	}
 
 	return GetNowSceneType();

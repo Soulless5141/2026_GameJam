@@ -34,6 +34,9 @@ void Player::Initialize()
     left_jump_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_left.png");
     right_jump_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_sizi.png");
 
+    jump_se_handle = LoadSoundMem("Resource/Image/2026_Gamejam_sozai/BGM SE/ƒWƒƒƒ“ƒv‰¹SE.mp3");      
+    landing_se_handle = LoadSoundMem("Resource/Image/2026_Gamejam_sozai/BGM SE/’…’n‰¹SE.mp3");     
+
     isGround = true;
 
     // “–‚½‚è”»’è
@@ -77,10 +80,12 @@ void Player::Update(float delta_second)
         powerRate = powerRate * powerRate / 1.25f;
 
         float jumpPower = minJump + (maxJump - minJump) * powerRate;
-        velocity.y = -jumpPower / 1.25f;
+        velocity.y = -jumpPower / 1.3f;
 
         float movePower = minMove + (maxMove - minMove) * powerRate;
-        velocity.x = movePower * jump_direction / 1.25f;
+        velocity.x = movePower * jump_direction / 0.5f;
+
+        PlaySoundMem(jump_se_handle, DX_PLAYTYPE_BACK);
 
         charge_Time = 0.0f;
 
@@ -151,14 +156,7 @@ void Player::Draw(const Vector2D& screen_ofset) const
     );
 }
 
-void Player::Finalize()
-{
-}
 
-Vector2D& Player::GetLocation()
-{
-    return this->location;
-}
 
 void Player::OnHitCollision(GameObject* hit_object)
 {
@@ -179,6 +177,19 @@ void Player::OnHitCollision(GameObject* hit_object)
     velocity.x = 0;
     jump_direction = 0;
 
+    PlaySoundMem(landing_se_handle, DX_PLAYTYPE_BACK);
+
     float floorTop = hit_object->GetLocation().y;
     location.y = floorTop - collision.box_size.y * 0.8f;
+}
+
+void Player::Finalize()
+{
+    DeleteSoundMem(jump_se_handle);     
+    DeleteSoundMem(landing_se_handle);
+}
+
+Vector2D& Player::GetLocation()
+{
+    return this->location;
 }

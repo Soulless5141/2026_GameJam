@@ -47,7 +47,11 @@ eSceneType TitleScene::Update(const float& delta_second)
         case 1:
             return eSceneType::eHelp;
         case 2:
-            return eSceneType::eEnd;
+            is_result = true;
+
+            DxLib_End();
+            exit(0);
+            break;;
         }
     }
 
