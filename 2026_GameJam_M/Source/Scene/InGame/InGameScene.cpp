@@ -195,7 +195,7 @@ void InGameScene::CreateStage()
 		{
 			if (block[x][y] != NULL && ((float)x * OBJECT_SIZE) < (camera->GetCameraLocation().x + (D_WIN_MAX_X / 1.9)))
 			{
-				Vector2D genelate_location = Vector2D(((float)x * 400)+250, ((float)y * -200)+800);
+				Vector2D genelate_location = Vector2D(((float)x * 400)+250, ((float)y * -230)+550);
 
 				switch (block[x][y])
 				{

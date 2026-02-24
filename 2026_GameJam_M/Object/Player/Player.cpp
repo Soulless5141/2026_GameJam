@@ -43,17 +43,18 @@ void Player::Initialize()
     left_jump_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_left.png");
     right_jump_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Chara_sizi.png");
 
-
+    isGround = true;
 
     //当たり判定の設定
-    collision.box_size.x = 32.0f;
+    collision.box_size.x = 10.0f;
     collision.box_size.y = 64.0f;
     collision.object_type = eObjectType::ePlayer;
+    collision.is_blocking = true;
     //ここまで追加
     collision.hit_object_type.push_back(eObjectType::eFloor);
     collision.hit_object_type.push_back(eObjectType::eGoal);
 
-    location = Vector2D(320.0f, 400.0f);
+    location = Vector2D(500.0f, 400.0f);
     velocity = 0.0f;
 
     //リスポーン初期位置保存　追加
@@ -62,8 +63,6 @@ void Player::Initialize()
 
 void Player::Update(float delta_second)
 {
-    //元のisGround
-    bool isGround = (location.y >= GROUND_Y);
     //新　IsGround　追加
     /*isGround = false;*/
     PadInputManager* pad = PadInputManager::GetInstance();
@@ -171,6 +170,15 @@ void Player::Update(float delta_second)
     }
 
     collision.pivot = location;
+
+
+
+   /* Camera* camera = Camera::Get();
+    if (location.x < camera->GetCameraLocation().x - (D_WIN_MAX_Y / 2.1))
+    {
+        location.x = camera->GetCameraLocation().x - (D_WIN_MAX_Y / 2.1);
+        velocity.x = 0;
+    }*/
 }
 void Player::Draw(const Vector2D& screen_ofset)const
 {
@@ -203,23 +211,27 @@ Vector2D& Player::GetLocation()
     return this->location;
 }
 
-//当たり判定処理　追加
-//void Player::OnHitCollision(GameObject* hit_object)
-//{
-//    if (hit_object->GetCollision().object_type == eObjectType::eFloor)
-//    {
-//        if (velocity.y > 0)//落下中だけ
-//        {
-//            isGround = true;
-//            velocity.y = 0;
-//            velocity.x = 0;
-//
-//            float floorTop = hit_object->GetCollision().pivot.y - hit_object->GetCollision().box_size.y / 2;
-//
-//            location.y = floorTop - collision.box_size.y / 2;
-//        }
-//    }
-//}
+void Player::OnHitCollision(GameObject* hit_object)
+{
+
+
+    if (hit_object->GetCollision().object_type != eObjectType::eFloor)
+        return;
+
+    // 落下中だけ着地判定
+    if (velocity.y < 0)
+        return;
+    isGround = true;
+    velocity.y = 0;
+    velocity.x = 0;
+
+    // Floor の location を「左上」とみなす場合
+    float floorTop = hit_object->GetLocation().y;
+
+    // Player の location は「中心」なので、
+    // 中心Y = 床の上端 - 自分の高さの半分
+    location.y = floorTop - collision.box_size.y * 1.3f;
+}
 //
 ////リスポーン　追加
 //void Player::Respawn()

@@ -20,6 +20,8 @@ public:
 	float maxJump = 700.0f;//ジャンプ最大
 	float minMove = 50.0f;
 	float maxMove = 150.0f;
+	//元のisGround
+	bool isGround;
 
 	//リスポーン 追加
 	Vector2D respawnPosition;
@@ -49,7 +51,7 @@ public:
 	/// 当たり判定通知処理
 	/// </summary>
 	/// <param name="hit_object">当たったゲームオブジェクトのポインタ</param>
-	//virtual void OnHitCollision(GameObject* hit_object) override;
+	virtual void OnHitCollision(GameObject* hit_object) override;
 
 	////リスポーン関数　追加
 	//void Respawn();

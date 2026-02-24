@@ -8,9 +8,10 @@ void Floor::Initialize()
 	image = rm->GetImages("Resource/Image/2026_Gamejam_sozai/Ekurea2.png", 1, 1, 1, 300, 136)[0];
 
 	collision.box_size.x = 300.0f;
-	collision.box_size.y = 136.0f;
+	collision.box_size.y = 100.0f;
 	collision.is_blocking = true;
 	collision.object_type = eObjectType::eFloor;
+
 }
 
 void Floor::Draw(const Vector2D& screen_offset) const
@@ -34,6 +35,11 @@ void Floor::OnHitCollision(GameObject* hit_object)
 void Floor::Update(float delta)
 {
 	// è∞ÇÃçXêVèàóùÇèëÇ≠
+	collision.pivot = location + Vector2D(
+		collision.box_size.x * 0.5f,
+		collision.box_size.y * 0.5f
+	);
+
 }
 
 
