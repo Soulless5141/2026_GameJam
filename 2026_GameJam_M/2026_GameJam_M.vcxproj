@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="Object\Floor\Goal.cpp" />
     <ClCompile Include="Source\Scene\End\EndScene.cpp" />
+    <ClCompile Include="Source\Scene\GameOver\GameOverScene.cpp" />
     <ClCompile Include="Source\Scene\Help\HelpScene.cpp" />
     <ClCompile Include="Object\Floor\FloorBase.cpp" />
     <ClCompile Include="Object\GameObjectManager.cpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="Object\Floor\Goal.h" />
     <ClInclude Include="Source\Scene\End\EndScene.h" />
+    <ClInclude Include="Source\Scene\GameOver\GameOverScene.h" />
     <ClInclude Include="Source\Scene\Help\HelpScene.h" />
     <ClInclude Include="Object\Floor\FloorBase.h" />
     <ClInclude Include="Object\GameObjectManager.h" />

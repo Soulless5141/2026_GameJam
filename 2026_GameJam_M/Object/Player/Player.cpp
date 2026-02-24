@@ -72,13 +72,10 @@ void Player::Update(float delta_second)
     if (pad->GetKeyInputState(XINPUT_BUTTON_RIGHT_SHOULDER) == eInputState::ePressed)
     {
         jump_direction = 1;
-
     }
-
     if (pad->GetKeyInputState(XINPUT_BUTTON_LEFT_SHOULDER) == eInputState::ePressed)
     {
         jump_direction = -1;
-
     }
 
     // チャージ処理
@@ -92,6 +89,7 @@ void Player::Update(float delta_second)
     }
 
     // 離したらジャンプ
+    // 離したらジャンプ
     if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eReleased
         && isGround
         && jump_direction != 0)   // 方向が決まっている場合のみジャンプ
@@ -100,12 +98,15 @@ void Player::Update(float delta_second)
         powerRate = powerRate * powerRate / 1.25;
 
         float jumpPower = minJump + (maxJump - minJump) * powerRate;
-        velocity.y = -jumpPower /1.25;
+        velocity.y = -jumpPower / 1.25;
 
         float movePower = minMove + (maxMove - minMove) * powerRate;
-        velocity.x = movePower * jump_direction /1.25;
+        velocity.x = movePower * jump_direction / 1.25;
 
         charge_Time = 0.0f;
+
+        // ← ここで空中状態にする
+        isGround = false;
     }
 
 
@@ -166,8 +167,9 @@ void Player::Update(float delta_second)
         location.y = GROUND_Y;
         velocity.y = 0.0f;
         velocity.x = 0.0f;  // 着地でピタ止まり
+        isGround = true;    // 着地したので再びジャンプ可能
 
-
+      
     }
 
     collision.pivot = location;
@@ -204,7 +206,6 @@ void Player::Draw(const Vector2D& screen_ofset)const
 
 void Player::Finalize()
 {
-    
 }
 
 Vector2D& Player::GetLocation()
