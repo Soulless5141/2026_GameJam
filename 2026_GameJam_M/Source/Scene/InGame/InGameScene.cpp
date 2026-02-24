@@ -38,7 +38,7 @@ void InGameScene::Initialize()
 	GetScreenState(&screenW, &screenH, nullptr);
 	camera = Camera::Get();
 	camera->CameraInit();
-	player = gm->CreateGameObject<Player>(Vector2D(120.0f, 400.0f));
+	player = gm->CreateGameObject<Player>(Vector2D(900.0f, 900.0f));
 
 	goal = new Goal();
 	goal->Initialize();
@@ -234,7 +234,7 @@ void InGameScene::LoadStageMapCSV()
 void InGameScene::CreateStage()
 {
 	GameObjectManager* gm = GameObjectManager::Get();
-	//printfDx("CreateStage called\n");
+
 
 	for (int x = 0; x < block.size(); x++)
 	{
@@ -242,7 +242,7 @@ void InGameScene::CreateStage()
 		{
 			if (block[x][y] != NULL && ((float)x * OBJECT_SIZE) < (camera->GetCameraLocation().x + (D_WIN_MAX_X / 1.9)))
 			{
-				Vector2D genelate_location = Vector2D(((float)x * 90)+170, ((float)y * -130)+850);
+				Vector2D genelate_location = Vector2D(((float)x * 90)+140, ((float)y * -130)+980);
 
 				switch (block[x][y])
 				{
@@ -266,17 +266,7 @@ void InGameScene::CreateStage()
 
 void InGameScene::DeleteStage()
 {
-	/*for (int x = 0; x < object.size(); x++)
-	{
-		for (int y = 0; y < object[x].size(); y++)
-		{
-			if (object[x][y] != nullptr && object[x][y]->GetLocation().x < camera->GetCameraLocation().x - (D_WIN_MAX_Y / 1.9))
-			{
-				gm->DestroyGameObject(object[x][y]);
-				object[x][y] = nullptr;
-			}
-		}
-	}*/
+
 }
 
 void InGameScene::CountDwon(float delta_second)
