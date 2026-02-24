@@ -16,6 +16,7 @@ private:
 	int cursor_se;    
 	int decide_se;    
 	int bgm_handle;  
+	int Rogo_image;
 
 	float arrow_angle = 0.0f;
 

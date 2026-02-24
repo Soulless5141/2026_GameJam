@@ -45,7 +45,7 @@ void HelpScene::Draw()
 
 	DrawExtendGraph(0, 0, screenWidth, screenHeight, Help_image, TRUE);
 
-	DrawString(10, 10, "ƒwƒ‹ƒv‰æ–Ê", GetColor(255, 255, 255));
+	//DrawString(10, 10, "ƒwƒ‹ƒv‰æ–Ê", GetColor(255, 255, 255));
 }
 void HelpScene::Finalize()
 {
