@@ -18,6 +18,7 @@ private:
 	int time;
 	float time_count;
 	int score;
+	bool is_goal;
 
 	std::vector<std::vector<int>>floor_set;
 	std::vector<std::vector<int>>block;

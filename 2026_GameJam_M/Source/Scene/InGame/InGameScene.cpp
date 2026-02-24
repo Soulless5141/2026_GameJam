@@ -8,7 +8,7 @@
 
 #define START_TIME (100) // 何秒からスタートかの初期設定
 
-InGameScene::InGameScene() : time(0),time_count(0),ground_stage(NULL)
+InGameScene::InGameScene() : time(0),time_count(0),ground_stage(NULL),is_goal(false)
 {
 
 }
@@ -38,7 +38,7 @@ void InGameScene::Initialize()
 	GetScreenState(&screenW, &screenH, nullptr);
 	camera = Camera::Get();
 	camera->CameraInit();
-	player = gm->CreateGameObject<Player>(Vector2D(320.0f, 400.0f));
+	player = gm->CreateGameObject<Player>(Vector2D(120.0f, 400.0f));
 
 	goal = new Goal();
 	goal->Initialize();
@@ -69,12 +69,12 @@ eSceneType InGameScene::Update(const float& delta_second)
 		return eSceneType::eResult;
 	}
 
-	if(goal&&goal->IsGaol())
+	if(goal&&goal->IsGoal() || is_goal == true)
 	{
 		return eSceneType::eEnd;
 	}
 
-	// 親クラスの更新処理を呼び出す
+	//// 親クラスの更新処理を呼び出す
 	camera->CameraUpdate(player->GetLocation());
 
 	CountDwon(delta_second);
@@ -109,7 +109,7 @@ void InGameScene::Draw()
 	DrawString(10, 10, "インゲーム画面", GetColor(255, 255, 255));
 	DrawString(10, 100, "時間制限", GetColor(255, 255, 255));
 	// 画像を画面いっぱいに引き伸ばして描画
-	//DrawExtendGraph(0, 0, screenW, screenH, image, TRUE);
+	DrawExtendGraph(0, 0, screenW, screenH, image, TRUE);
 
 	__super::Draw();
 
@@ -217,7 +217,7 @@ void InGameScene::CreateStage()
 		{
 			if (block[x][y] != NULL && ((float)x * OBJECT_SIZE) < (camera->GetCameraLocation().x + (D_WIN_MAX_X / 1.9)))
 			{
-				Vector2D genelate_location = Vector2D(((float)x * 200)+250, ((float)y * -130)+750);
+				Vector2D genelate_location = Vector2D(((float)x * 90)+150, ((float)y * -130)+650);
 
 				switch (block[x][y])
 				{

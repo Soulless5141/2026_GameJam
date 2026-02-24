@@ -7,11 +7,11 @@ void Goal::Initialize()
 
 	// アニメーション画像の読み込み
 	ResourceManager* rm = ResourceManager::Get();
-	//image = rm->GetImages("", 1, 1, 1, 32, 32)[0];
+	image = rm->GetImages("Resource/Image/2026_Gamejam_sozai/GoalImage.png", 1, 1, 1, 300, 253)[0];
 
 	// 当たり判定の設定
 
-	collision.box_size.x = 32.0f;
+	collision.box_size = 100.0f;
 	collision.object_type = eObjectType::eGoal;
 }
 
