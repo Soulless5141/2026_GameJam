@@ -113,14 +113,40 @@ void InGameScene::Draw()
 
 	__super::Draw();
 
+	// 文字サイズを大きく
+	SetFontSize(48);
+
+	// 配置位置
+	int timerX = 50;
+	int timerY = screenH - 100;
+
+	// アウトライン用のオフセット
+	int offset = 2; // 黒縁の太さ
+
 	if (time >= 0)
 	{
-		DrawFormatString(10, 200, GetColor(255, 255, 255), "%d", time);
+		// 黒のアウトライン（上下左右に少しずらして描く）
+		DrawFormatString(timerX - offset, timerY - offset, GetColor(0, 0, 0), "TIME: %d", time);
+		DrawFormatString(timerX + offset, timerY - offset, GetColor(0, 0, 0), "TIME: %d", time);
+		DrawFormatString(timerX - offset, timerY + offset, GetColor(0, 0, 0), "TIME: %d", time);
+		DrawFormatString(timerX + offset, timerY + offset, GetColor(0, 0, 0), "TIME: %d", time);
+
+		// 上に黄色で描画
+		DrawFormatString(timerX, timerY, GetColor(255, 255, 150), "TIME: %d", time);
 	}
 	else
 	{
-		DrawFormatString(10, 200, GetColor(255, 255, 255), "TIME UP!");
+		// TIME UPも同じくアウトライン付きで赤
+		DrawFormatString(timerX - offset, timerY - offset, GetColor(0, 0, 0), "TIME UP!");
+		DrawFormatString(timerX + offset, timerY - offset, GetColor(0, 0, 0), "TIME UP!");
+		DrawFormatString(timerX - offset, timerY + offset, GetColor(0, 0, 0), "TIME UP!");
+		DrawFormatString(timerX + offset, timerY + offset, GetColor(0, 0, 0), "TIME UP!");
+
+		DrawFormatString(timerX, timerY, GetColor(255, 0, 0), "TIME UP!");
 	}
+
+	// 元の文字サイズに戻す
+	SetFontSize(24);
 }
 
 void InGameScene::Finalize()
