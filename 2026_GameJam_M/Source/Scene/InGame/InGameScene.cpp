@@ -40,6 +40,17 @@ void InGameScene::Initialize()
 	camera->CameraInit();
 	player = gm->CreateGameObject<Player>(Vector2D(320.0f, 400.0f));
 
+	goal = new Goal();
+	goal->Initialize();
+
+	//デバック用
+	Vector2D pos = player->GetPosition();
+	pos.x += 40;
+
+	goal->SetPosition(pos);
+
+	game_objects_list.push_back(goal);
+
 	LoadStageMapCSV();
 	CreateStage();
 
@@ -56,6 +67,11 @@ eSceneType InGameScene::Update(const float& delta_second)
 	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
 	{
 		return eSceneType::eResult;
+	}
+
+	if(goal&&goal->IsGaol())
+	{
+		return eSceneType::eEnd;
 	}
 
 	// 親クラスの更新処理を呼び出す
@@ -177,6 +193,12 @@ void InGameScene::LoadStageMapCSV()
 		{
 			x = 0;
 			y++;
+		}
+
+		if (goal)             
+		{
+			delete goal;       
+			goal = nullptr;    
 		}
 
 	}

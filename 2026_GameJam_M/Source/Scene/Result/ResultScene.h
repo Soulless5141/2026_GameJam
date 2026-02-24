@@ -10,6 +10,7 @@ private:
     int bgm_handle;     
     int decide_se;   
 	int font_handle;   // フォントのハンドル
+    int Frame;
 
 
 public:
