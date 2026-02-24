@@ -41,6 +41,13 @@ public:
 	void SetLocation(const Vector2D&);
 	const Collision& GetCollision() const;
 	const unsigned char GetZLayer() const;
+
+	// ☆デバック用
+	void SetPosition(const Vector2D& pos) { location = pos; }
+
+	//　☆デバック用
+	Vector2D GetPosition() const { return location; }
+
 	/*const bool GetMobility() const;*/
 	/// <summary>
 	/// 所有シーン情報の設定

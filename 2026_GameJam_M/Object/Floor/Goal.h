@@ -23,5 +23,7 @@ public:
 	/// <param name="hit_object">当たったゲームオブジェクトのポインタ</param>
 	virtual void OnHitCollision(GameObject* hit_object) override;
 
+	bool IsGaol() const { return goal_flg; }
+
 };
 

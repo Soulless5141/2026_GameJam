@@ -86,6 +86,8 @@ void TitleScene::Draw()
             );
         }
     }
+
+    
 }
 
 void TitleScene::Finalize()

@@ -16,6 +16,7 @@ void ResultScene::Initialize()
     final_score = 1500; 
 
 	background_handle = LoadGraph("Resource/Image/2026_Gamejam_sozai/Haikei1.png");
+	Frame = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleFrame.png");
     bgm_handle = LoadSoundMem("Resource/Image/BGM SE/ランキングリザルト画面BGM.mp3");   
     decide_se = LoadSoundMem("Resource/Image/BGM SE/決定SE.mp3");  
     font_handle = CreateFontToHandle("ＭＳ ゴシック", 48, 3);
@@ -61,11 +62,11 @@ void ResultScene::Draw()
 	DrawExtendGraph(0, 0, screenWidth, screenHeight, background_handle, TRUE);
     DrawString(10, 10, "リザルト画面", GetColor(255, 255, 255));
 
-    // ★中央座標計算
+    //中央座標計算
     int centerX = screenWidth / 2;
     int centerY = screenHeight / 2;
 
-    // ★中央揃えでスコア表示（シアン）
+    //スコア表示（シアン）
     DrawFormatStringToHandle(
         centerX,
         centerY,
@@ -74,6 +75,14 @@ void ResultScene::Draw()
         "SCORE : %d",
         final_score
     );
+
+	int frameWidth, frameHeight;
+	GetGraphSize(Frame, &frameWidth, &frameHeight);
+
+	int frameX = centerX - frameWidth / 2;
+	int frameY = centerY - frameHeight / 2;
+
+	DrawGraph(frameX, frameY, Frame, TRUE);
 
     DrawFormatString(10, 50,
         GetColor(255, 255, 0),

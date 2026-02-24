@@ -3,6 +3,8 @@
 
 void Goal::Initialize()
 {
+	goal_flg = false;
+
 	// アニメーション画像の読み込み
 	ResourceManager* rm = ResourceManager::Get();
 	//image = rm->GetImages("", 1, 1, 1, 32, 32)[0];

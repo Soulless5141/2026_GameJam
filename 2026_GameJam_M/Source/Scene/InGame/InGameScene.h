@@ -3,6 +3,7 @@
 #include "../SceneBase.h"
 #include "../../../Utility/Camera.h"
 #include"../../../Object/Player/Player.h"
+#include "../../../Object/Floor/Goal.h"
 
 #define FLOOR_MAX_X (40)     // ‰¡‚É‰½ŒÂ‚©
 #define FLOOR_MAX_Y (100)    // c‚É‰½ŒÂ‚©
@@ -24,6 +25,8 @@ private:
 
 	// ‰æ–ÊƒTƒCƒY‚ğæ“¾
 	int screenW, screenH;
+
+	Goal* goal;
 
 
 public:
