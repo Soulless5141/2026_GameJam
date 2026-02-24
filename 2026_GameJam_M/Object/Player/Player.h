@@ -38,6 +38,12 @@ private:
 	int right_jump_image;
 	int landing_image;
 
+	int donut2_image;   
+	int donut3_image;   
+
+	int jump_se_handle;        // ƒWƒƒƒ“ƒv‰¹
+	int landing_se_handle;     // ’…’n‰¹
+
 public:
 	Player();
 	~Player();
