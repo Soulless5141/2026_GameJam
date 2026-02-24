@@ -84,6 +84,7 @@ void SceneManager::Finalize()
         //ダンぐリングポインタ防止
         current_scene = nullptr;
     }
+
 }
 
 //シーン変更処理
