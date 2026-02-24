@@ -1,6 +1,7 @@
 #include "TitleScene.h"
 #include "../../Input/InputManager.h"
 #include "../../../Utility/PadInputManager.h"
+#include "math.h"
 #include <DxLib.h>
 
 TitleScene::TitleScene()
@@ -19,7 +20,10 @@ void TitleScene::Initialize()
 
     Title_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Title_Help.png");
     //Box_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleFrame.png");
-    Arrow_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut1.png");
+    Arrow_image[0] = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut1.png");
+    Arrow_image[1] = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut2.png");
+    Arrow_image[2] = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut3.png");
+    random_donut = GetRand(2);
     font_handle = CreateFontToHandle(NULL, 40, 3);
 
     cursor_se = LoadSoundMem("Resource/Image/BGM SE/カーソル移動SE.mp3");   
@@ -47,6 +51,10 @@ eSceneType TitleScene::Update(const float& delta_second)
         }
     }
 
+    arrow_angle += 10.0f * delta_second;   // 回転速度（毎フレーム3度）
+    if (arrow_angle >= 360.0f) arrow_angle -= 360.0f;
+
+
     SelectCursor();
 
     return GetNowSceneType();
@@ -60,12 +68,12 @@ void TitleScene::Draw()
     DrawExtendGraph(0, 0, screenWidth, screenHeight, Title_image, TRUE);
 
     // ↓ メニュー位置を直接指定
-    int baseX = screenWidth / 2 - -140;  
-    int baseY = screenHeight / 2 - -10;
-    int lineSpace = 90;
+    int baseX = screenWidth / 2 - -190;  
+    int baseY = screenHeight / 2 - 25;
+    int lineSpace = 130;
 
     int arrowW, arrowH;
-    GetGraphSize(Arrow_image, &arrowW, &arrowH);
+    GetGraphSize(Arrow_image[random_donut], &arrowW, &arrowH);
 
     int smallW = arrowW / 7;
     int smallH = arrowH / 7;
@@ -76,14 +84,17 @@ void TitleScene::Draw()
 
         if (i == cursor_number)
         {
-            DrawExtendGraph(
-                baseX,
-                arrowY,
-                baseX + smallW,
-                arrowY + smallH,
-                Arrow_image,
+            float scale = 0.15f;  // ← 25% の大きさに縮小（ここを調整）
+
+            DrawRotaGraph(
+                baseX + smallW / 2,        // 中心X
+                arrowY + smallH / 2,       // 中心Y
+                scale,                     // ← 大きさ
+                arrow_angle * DX_PI / 180, // 回転角度（ラジアン）
+                Arrow_image[random_donut],
                 TRUE
             );
+
         }
     }
 
@@ -96,7 +107,7 @@ void TitleScene::Finalize()
 
     DeleteGraph(Title_image);
     DeleteGraph(Box_image);
-    DeleteGraph(Arrow_image);
+    DeleteGraph(Arrow_image[random_donut]);
 
     DeleteSoundMem(cursor_se);       
     DeleteSoundMem(decide_se);       

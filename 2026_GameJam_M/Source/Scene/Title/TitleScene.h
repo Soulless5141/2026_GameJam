@@ -10,12 +10,14 @@ private:
 	int cursor_number;
 	int Title_image;
 	int Box_image;
-	int Arrow_image;
+	int Arrow_image[3] = {};
+	int random_donut;
 	int cursor_y;
 	int cursor_se;    
 	int decide_se;    
 	int bgm_handle;  
 
+	float arrow_angle = 0.0f;
 
 	bool is_result;
 
