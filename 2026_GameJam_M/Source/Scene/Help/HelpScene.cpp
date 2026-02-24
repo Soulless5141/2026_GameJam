@@ -31,7 +31,6 @@ eSceneType HelpScene::Update(const float& delta_second)
 		return eSceneType::eInGame;
 	}
 
-	PadInputManager* pad = PadInputManager::GetInstance();
 	if (pad->GetKeyInputState(XINPUT_BUTTON_B) == eInputState::ePressed)
 	{
 		return eSceneType::eInGame;
