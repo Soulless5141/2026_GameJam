@@ -9,4 +9,5 @@ enum class eSceneType :unsigned char
 	eEnd,		//エンド
 	eTest,		//テスト
 	eRanking,	//ランキング
+	eGameOver,	//ゲームオーバー
 };

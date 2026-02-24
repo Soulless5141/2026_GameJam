@@ -88,7 +88,7 @@ eSceneType InGameScene::Update(const float& delta_second)
 	// šŠÔØ‚ê”»’è
 	if (time < 0)
 	{
-		return eSceneType::eRanking;
+		return eSceneType::eGameOver;
 	}
 
 	return GetNowSceneType();
