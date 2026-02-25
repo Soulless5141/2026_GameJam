@@ -61,6 +61,11 @@ void InGameScene::Initialize()
 eSceneType InGameScene::Update(const float& delta_second)
 {
 
+	if (player->GetLocation().y > 1200)
+	{
+		time = 0;
+	}
+
 	PadInputManager* pad = PadInputManager::GetInstance();
 
 	if(goal&&goal->IsGoal() || player->isGoal == true)

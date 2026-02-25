@@ -61,7 +61,7 @@ void Player::Update(float delta_second)
         jump_direction = -1;
 
     // ===== チャージ処理 =====
-    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eHeld
+    if (pad->GetKeyInputState(XINPUT_BUTTON_X) == eInputState::eHeld
         && isGround
         && jump_direction != 0)
     {
@@ -71,7 +71,7 @@ void Player::Update(float delta_second)
     }
 
     // ===== ジャンプ処理 =====
-    if (pad->GetKeyInputState(XINPUT_BUTTON_A) == eInputState::eReleased
+    if (pad->GetKeyInputState(XINPUT_BUTTON_X) == eInputState::eReleased
         && isGround
         && jump_direction != 0)
     {
