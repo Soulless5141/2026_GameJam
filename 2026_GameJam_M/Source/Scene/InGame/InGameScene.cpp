@@ -38,22 +38,20 @@ void InGameScene::Initialize()
 	GetScreenState(&screenW, &screenH, nullptr);
 	camera = Camera::Get();
 	camera->CameraInit();
+	
+	LoadStageMapCSV();
+	CreateStage();
 	player = gm->CreateGameObject<Player>(Vector2D(870.0f, 550.0f));
-
-	goal = new Goal();
-	goal->Initialize();
 
 	//デバック用
 	Vector2D pos = player->GetPosition();
 	pos.x += 40;
 
+	goal = new Goal();
+	goal->Initialize();
 	goal->SetPosition(pos);
 
 	game_objects_list.push_back(goal);
-
-	LoadStageMapCSV();
-	CreateStage();
-
 }
 
 /// <summary>
