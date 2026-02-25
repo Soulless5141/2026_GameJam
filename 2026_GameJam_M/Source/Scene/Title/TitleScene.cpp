@@ -19,7 +19,7 @@ void TitleScene::Initialize()
     cursor_y = 0;
 
     Title_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/Title_Help.png");
-	Rogo_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleLogo.png");
+	Rogo_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleRogo.png");
     //Box_image = LoadGraph("Resource/Image/2026_Gamejam_sozai/TitleFrame.png");
     Arrow_image[0] = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut1.png");
     Arrow_image[1] = LoadGraph("Resource/Image/2026_Gamejam_sozai/donut2.png");
@@ -71,7 +71,7 @@ void TitleScene::Draw()
     GetDrawScreenSize(&screenWidth, &screenHeight);
 
     DrawExtendGraph(0, 0, screenWidth, screenHeight, Title_image, TRUE);
-    DrawGraph(0, 0, Rogo_image, TRUE);
+    DrawRotaGraphF(600, 250, 0.4, 0.0, Rogo_image, TRUE, 0);
 
     // ↓ メニュー位置を直接指定
     int baseX = screenWidth / 2 - -190;  

@@ -174,7 +174,7 @@ void Player::OnHitCollision(GameObject* hit_object)
     isGround = true;
     velocity.y = 0;
     velocity.x = 0;
-    jump_direction = 0;
+    //jump_direction = 0;
 
     PlaySoundMem(landing_se_handle, DX_PLAYTYPE_BACK);
 
