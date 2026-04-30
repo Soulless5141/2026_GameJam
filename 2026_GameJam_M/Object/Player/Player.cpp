@@ -16,6 +16,7 @@ Player::Player() :
     box_size(0.0f),
     g_velocity(0.0f),
     isGoal(false)
+
 {
 }
 
@@ -48,6 +49,9 @@ void Player::Initialize()
     collision.hit_object_type.push_back(eObjectType::eGoal);
 
     velocity = 0.0f;
+
+    /*location = Vector2D(960.0f, 300.0f);*/
+
 }
 
 void Player::Update(float delta_second)

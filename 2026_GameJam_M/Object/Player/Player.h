@@ -26,7 +26,7 @@ public:
 	bool isGoal;
 
 	//ƒŠƒXƒ|[ƒ“ ’Ç‰Á
-	Vector2D respawnPosition;
+	//Vector2D respawnPosition;
 	bool requestRespawn = false;
 
 private:

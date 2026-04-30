@@ -41,7 +41,7 @@ void InGameScene::Initialize()
 	
 	LoadStageMapCSV();
 	CreateStage();
-	player = gm->CreateGameObject<Player>(Vector2D(870.0f, 550.0f));
+	player = gm->CreateGameObject<Player>(Vector2D(870.0f, 350.0f));
 
 	//デバック用
 	Vector2D pos = player->GetPosition();
